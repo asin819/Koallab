@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-var user = require('../business/user');
+let user = require('../business/user');
 
 /**
  * GET user information.

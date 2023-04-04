@@ -1,4 +1,4 @@
-var base = require('../bin/base');
+let base = require('../bin/base');
 
 this.login = async function (req, res, next) {
     try {
