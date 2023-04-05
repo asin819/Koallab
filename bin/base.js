@@ -74,7 +74,6 @@ this.checkReq = async function (req, res, next) {
                             let authorizationvalidityexpirationdate = docs[0].authorizationvalidityexpirationdate;
                             if (authorizationvalidityexpirationdate > new Date()) {
                                 isOk = true;
-                                next();
                             } else {
                                 throw new Error("The token has expired");
                             }
@@ -87,6 +86,7 @@ this.checkReq = async function (req, res, next) {
                 }
             }
         }
+        if (isOk)next();
     } catch (e) {
         console.log(e);
         res.end(base.mkBizMsg("fail", e.message ? e.message : e));

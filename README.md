@@ -16,21 +16,25 @@ Download the Monodb client: https://www.mongodb.com/try/download/compass
 ### Start Mongodb
 
 Go to the directory of the downloaded Mongodb and enter the bin subdirectory, then execute the following command:
-
+```sh
 ./mongod --dbpath ./db
+```
 
 the "./db" is your database file "./db" is the path to save your database file, if it doesn't exist, you need to create it.
 
 ### Initialize the project
 
 Download the source code of khakikoalas_backend and execute the following command to initialize the environment:
+```sh
 npm install
+```
 
 ### Start the project
 
 You can start debugging directly in VSCode by clicking on "Debug" and selecting "Nodejs". You can also start the project directly with the following command:
-
+```sh
 npm run start
+```
 
 ## Project description
 
