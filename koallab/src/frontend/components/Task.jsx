@@ -1,5 +1,5 @@
 import React from "react";
-import "./Task.css";
+import "./styles/Task.css";
 import informationIcon from "../assets/info.png";
 
 const Task = ({

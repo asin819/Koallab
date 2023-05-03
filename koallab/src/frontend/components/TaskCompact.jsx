@@ -1,6 +1,5 @@
 import React from "react";
-import "./TaskCompact.css";
-import informationIcon from "../assets/info.png";
+import "./styles/TaskCompact.css";
 
 const TaskCompact = ({
   TaskTitle,
@@ -14,7 +13,7 @@ const TaskCompact = ({
   }
   console.log({TaskImportance});
   return (
-    <div className="Task">
+    <div className="TaskCompact">
       <h2>{TaskTitle}</h2>
       <p>Due: </p>
       <p className={textColor}>{TaskImportance}</p>

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Task from './frontend/components/Task.jsx'
+import TaskCompact from './frontend/components/TaskCompact.jsx'
+import TeamCard from './frontend/components/TeamCard.jsx'
 
 import './App.css'
 
@@ -15,6 +17,15 @@ function App() {
         TaskStatus="new"
         TaskImportance="Important"
       /> */}
+
+      {/* <TaskCompact
+        TaskTitle="Make a task card"
+        TaskImportance="Important"
+      /> */}
+
+      <TeamCard
+        TeamName="Khaki Koallas"
+      />
     </div>
   
   )
