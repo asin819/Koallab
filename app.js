@@ -10,6 +10,7 @@ require('./bin/initdb');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+let groupsRouter = require('./routes/groups');
 
 let app = express();
 
@@ -29,6 +30,7 @@ app.use(base.checkReq);
 // khakikoalas's business handle here
 app.use('/', indexRouter);
 app.use('/', usersRouter);
+app.use('/', groupsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
