@@ -21,7 +21,8 @@ const Task = ({
       <hr></hr>
       <p>Created at: </p>
       <p>Assigned to: {username}</p>
-
+      <p> Due by: </p>
+      
       <h3>{description}</h3>
 
       <p>Status: {TaskStatus}</p>
