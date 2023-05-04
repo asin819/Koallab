@@ -11,6 +11,7 @@ require('./bin/initdb');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let groupsRouter = require('./routes/groups');
+let projectsRouter = require('./routes/projects');
 
 let app = express();
 
@@ -31,6 +32,7 @@ app.use(base.checkReq);
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/', groupsRouter);
+app.use('/', projectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
