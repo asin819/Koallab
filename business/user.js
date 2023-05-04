@@ -136,7 +136,7 @@ this.logout = async function (req, res, next) {
 };
 
 /**
- * delete a user from the database
+ * delete a user from the database and cancel token
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
@@ -145,8 +145,11 @@ this.deleteUser = async function (req, res, next) {
     try {
         let userid = req.body.userid;
         if (userid != null & userid != "") {
-                await global.db.modUser.deleteOne({ userid: userid }).then((docs) => {
-                    if (docs.deletedCount ==1) {
+                let newStatus="deleted";
+                await global.db.modUser.findOneAndUpdate({ userid: userid },{ userstatus: newStatus ,authorizationtoken: "",authorizationgenerationtime:null,authorizationvalidityexpirationdate:null},{
+                    new: true
+                  }).then((docs) => {
+                    if (docs.userstatus ==newStatus) {
                         res.end(base.mkBizMsg("success", "Delete user done!"));
                     } else {
                         throw new Error("Delete user failed");

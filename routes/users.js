@@ -36,12 +36,12 @@ router.post('/deleteUser', user.deleteUser);
 /**
  * Get user information from group
  */
-router.post('/getGroupUserList', user.getGroupUserList);
+router.get('/getGroupUserList', user.getGroupUserList);
 
 /**
  * Get user information from project
  */
-router.post('/getProjectUserList', user.getProjectUserList);
+router.get('/getProjectUserList', user.getProjectUserList);
 
 /**
  * Create a new group
