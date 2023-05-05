@@ -7,14 +7,14 @@ const getTaskInfo = async (taskId) => {
     return await Task.findOne({ taskid: taskId });
 }
 
-const getTaskListFromProject = async (projectId) => {
+const getTasksFromProject = async (projectId) => {
     const taskRef = await ProjectTask.find({ projectid: projectId });
     const taskIds = taskRef.map(thisTask => thisTask.taskid);
 
     return await Task.find({ taskid: { $in: taskIds } });
 }
 
-const getTaskListFromUser = async (userId) => {
+const getTasksFromUser = async (userId) => {
     return await Task.find({ executorid: userId });
 }
 
@@ -41,8 +41,8 @@ const deleteTaskFromProject = async (taskId, projectId) => {
 
 module.exports = {
     getTaskInfo,
-    getTaskListFromProject,
-    getTaskListFromUser,
+    getTasksFromProject,
+    getTasksFromUser,
     addTaskToProject,
     deleteTaskFromProject
 };
