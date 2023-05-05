@@ -21,7 +21,7 @@ const ProjectTaskSchema = new mongoose.Schema({
 });
 
 // Create a unique compound index for projectId and taskId
-ProjectTaskSchema.index({ projectId: 1, taskId: 1 }, { unique: true });
+ProjectTaskSchema.index({ projectid: 1, taskid: 1 }, { unique: true });
 
 const ProjectTask = mongoose.model('project_task_relationships', ProjectTaskSchema);
 module.exports = { ProjectTask };

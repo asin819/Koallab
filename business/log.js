@@ -12,15 +12,37 @@ const createLog = async (taskId, content, adderToken) => {
         adderid: adderId
     })
 
-    const log = await newLog.save();
+    return await newLog.save();
+}
 
-    return log;
+const getLog = async (logId) => {
+    return await TaskLog.findOne({ logid: logId });
+}
+
+const modifyLog = async (logId, content) => {
+    const modifiedLog = await TaskLog.findOne({ logid: logId });
+
+    modifiedLog.content = content;
+
+    return await modifiedLog.save();
+}
+
+const deleteLog = async (logId) => {
+    return await TaskLog.findOneAndDelete({ logid: logId });
+}
+
+const getLogListFromTask = async (taskId) => {
+    return await TaskLog.find({ taskid: taskId });
 }
 
 
 
 module.exports = {
-    createLog
+    createLog,
+    getLog,
+    modifyLog,
+    deleteLog,
+    getLogListFromTask
 };
 
 

@@ -3,7 +3,9 @@ let router = express.Router();
 
 const { getTaskInfo,
     getTaskListFromProject,
-    getTaskListFromUser
+    getTaskListFromUser,
+    addTaskToProject,
+    deleteTaskFromProject
 } = require("../business/task");
 
 
@@ -59,6 +61,38 @@ router.get('/tasks/user/:userId', async (req, res) => {
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Error fetching task list by user ID.' });
+    }
+})
+
+router.post('/projects/tasks', async (req, res) => {
+    const { taskId, projectId, token } = req.body;
+
+    try {
+        const task = await addTaskToProject(taskId, projectId, token);
+
+        return res.status(200).json(task.taskid);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Error adding task.' });
+    }
+})
+
+router.delete('/projects/tasks', async (req, res) => {
+    const projectId = req.body.projectId;
+    const taskId = req.body.taskId;
+
+    try {
+        const log = await deleteTaskFromProject(taskId, projectId);
+
+        if (!log) {
+            return res.status(HTTP_NOT_FOUND).send("Log not found.");
+        }
+
+        return res.status(200).json({ message: 'Log deleted successfully' });
+
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Error fetching log from ID.' });
     }
 })
 
