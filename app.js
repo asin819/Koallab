@@ -10,6 +10,7 @@ require('./bin/initdb');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+let tasksRouter = require('./routes/tasks');
 
 let app = express();
 
@@ -24,11 +25,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Check the legitimacy of each request
-app.use(base.checkReq);
+//app.use(base.checkReq);
 
 // khakikoalas's business handle here
 app.use('/', indexRouter);
 app.use('/', usersRouter);
+app.use('/', tasksRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
