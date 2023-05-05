@@ -31,8 +31,6 @@ const addTaskToProject = async (taskId, projectId, adderToken) => {
 }
 
 const deleteTaskFromProject = async (taskId, projectId) => {
-    console.log(taskId);
-    console.log(projectId);
     return await ProjectTask.findOneAndDelete({
         projectid: projectId,
         taskid: taskId

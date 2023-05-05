@@ -2,15 +2,29 @@ let express = require("express");
 let router = express.Router();
 
 const { getTaskInfo,
-    getTaskListFromProject,
-    getTaskListFromUser,
+    getTasksFromProject,
+    getTasksFromUser,
     addTaskToProject,
     deleteTaskFromProject
 } = require("../business/task");
 
+const HTTP_OK = 200;
+const HTTP_CREATED = 201;
+const HTTP_NOT_FOUND = 404;
+const HTTP_ERROR = 500;
 
-router.get('/tasks/:taskId', async (req, res) => {
-    const taskId = req.params.taskId;
+
+/**
+ * 31. Query the detailed information of a specified task:
+ * 
+ * @param {*} req 
+ * @param {*} req.query.taskId
+ * 
+ * @param {*} res => Task object 
+ * 
+ */
+router.get('/tasks', async (req, res) => {
+    const taskId = req.query.taskId;
 
     try {
         const task = await getTaskInfo(taskId);
@@ -19,80 +33,113 @@ router.get('/tasks/:taskId', async (req, res) => {
             return res.status(HTTP_NOT_FOUND).send("Task not found.");
         }
 
-        return res.status(200).json(task);
+        return res.status(HTTP_OK).json({ message: 'Done', task });
 
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ message: 'Error fetching task from ID.' });
+        return res.status(HTTP_ERROR).json({ message: 'Error fetching task from ID.' });
     }
 })
 
-router.get('/tasks/project/:projectId', async (req, res) => {
-    const projectId = req.params.projectId;
+/**
+ * 32. Query the task list of the specified project:
+ * 
+ * @param {*} req
+ * @param {String} req.query.projectId
+ * 
+ * @param {*} res => Task object list
+ * 
+ */
+router.get('/tasks/project', async (req, res) => {
+    const projectId = req.query.projectId;
 
     try {
-        const tasks = await getTaskListFromProject(projectId);
+        const tasks = await getTasksFromProject(projectId);
 
         if (!tasks) {
-            return res.status(HTTP_NOT_FOUND).send("Tasks for the given project ID not found.");
+            return res.status(HTTP_NOT_FOUND).send("Tasks for the given Project not found.");
         }
 
-        return res.status(200).json(tasks);
+        return res.status(HTTP_OK).json({ message: 'Done', tasks });
 
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ message: 'Error fetching task list from project.' });
+        return res.status(HTTP_ERROR).json({ message: 'Error fetching task list from project.' });
     }
 })
 
-router.get('/tasks/user/:userId', async (req, res) => {
-    const userId = req.params.userId;
+/**
+ * 33. Query the list of tasks in which the specified person is involved:
+ * 
+ * @param {*} req
+ * @param {String} req.query.userId
+ * 
+ * @param {*} res => Task object list
+ * 
+ */
+router.get('/tasks/user', async (req, res) => {
+    const userId = req.query.userId;
 
     try {
-        const tasks = await getTaskListFromUser(userId);
-
+        const tasks = await getTasksFromUser(userId);
 
         if (!tasks) {
-            return res.status(HTTP_NOT_FOUND).send("Tasks for the given project ID not found.");
+            return res.status(HTTP_NOT_FOUND).send("Tasks for the given User not found.");
         }
 
-        return res.status(200).json(tasks);
+        return res.status(HTTP_OK).json({ message: 'Done', tasks });
 
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ message: 'Error fetching task list by user ID.' });
+        return res.status(HTTP_ERROR).json({ message: 'Error fetching task list by user.' });
     }
 })
 
+/**
+ * 39. Add a task to the project:
+ * 
+ * @param {*} req
+ * @param {String} req.body.taskId
+ * @param {String} req.body.projectId
+ * @param {String} req.body.token => Used to query adderId
+ * 
+ * @param {*} res
+ * 
+ */
 router.post('/projects/tasks', async (req, res) => {
     const { taskId, projectId, token } = req.body;
 
     try {
-        const task = await addTaskToProject(taskId, projectId, token);
+        const taskRef = await addTaskToProject(taskId, projectId, token);
 
-        return res.status(200).json(task.taskid);
+        return res.status(HTTP_CREATED).json({ message: `Task ${taskRef.taskid} add in project ${taskRef.projectid} by User ${taskRef.adderid}` });
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ message: 'Error adding task.' });
+        return res.status(HTTP_ERROR).json({ message: 'Error adding task.' });
     }
 })
 
+/**
+ * 40. Remove Task from Project:
+ * 
+ * @param {*} req
+ * @param {String} req.body.taskId
+ * @param {String} req.body.projectId
+ * 
+ * @param {*} res
+ * 
+ */
 router.delete('/projects/tasks', async (req, res) => {
     const projectId = req.body.projectId;
     const taskId = req.body.taskId;
 
     try {
-        const log = await deleteTaskFromProject(taskId, projectId);
+        const taskRef = await deleteTaskFromProject(taskId, projectId);
 
-        if (!log) {
-            return res.status(HTTP_NOT_FOUND).send("Log not found.");
-        }
-
-        return res.status(200).json({ message: 'Log deleted successfully' });
-
+        return res.status(HTTP_OK).json({ message: `Task deleted from project ${taskRef.projectid} successfully` });
     } catch (e) {
         console.log(e);
-        return res.status(500).json({ message: 'Error fetching log from ID.' });
+        return res.status(HTTP_ERROR).json({ message: 'Error fetching log from ID.' });
     }
 })
 
