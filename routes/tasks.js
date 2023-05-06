@@ -1,11 +1,15 @@
 let express = require("express");
 let router = express.Router();
 
-const { getTaskInfo,
+const {
+    createTask,
+    modifyTask,
+    modifyTaskStatus,
+    getTaskInfo,
     getTasksFromProject,
     getTasksFromUser,
     addTaskToProject,
-    deleteTaskFromProject
+    deleteTaskFromProject,
 } = require("../business/task");
 
 const HTTP_OK = 200;
@@ -13,6 +17,103 @@ const HTTP_CREATED = 201;
 const HTTP_NOT_FOUND = 404;
 const HTTP_ERROR = 500;
 
+/**
+ * 28. Create new task:
+ * 
+ * @param {*} req
+ * @param {*} req.body => task data fields
+ * @param {String} req.body.token => Used to query adderId
+ * 
+ * @param {*} res => created log Id 
+ * 
+ */
+router.post('/tasks', async (req, res) => {
+    const taskContent = {
+        taskTitle: req.body.taskTitle,
+        taskDescription: req.body.taskDescription,
+        executorId: req.body.executorId,
+        taskStatus: req.body.taskStatus,
+        parentTaskId: req.body.parentTaskId,
+        estimatedTime: req.body.estimatedTime,
+        importance: req.body.importance,
+        taskLabel: req.body.taskLabel
+    };
+    const { token } = req.body;
+
+    try {
+        const newTask = await createTask(taskContent, token);
+
+        return res.status(HTTP_CREATED).json({ message: `Task ${newTask.taskid} created`, taskId: newTask.taskid });
+    } catch (e) {
+        console.log(e);
+        return res.status(HTTP_ERROR).json({ message: 'Error creating Task.' });
+    }
+})
+
+/**
+ * 29. Modify task information (title, description, estimated time, importance, task label):
+ * 
+ * @param {*} req
+ * @param {String} req.body.taskId
+ * @param {*} req.body => task data fields
+ * 
+ * @param {*} res
+ * 
+ */
+router.put('/tasks', async (req, res) => {
+    const taskContent = {
+        taskTitle: req.body.taskTitle,
+        taskDescription: req.body.taskDescription,
+        estimatedTime: req.body.estimatedTime,
+        importance: req.body.importance,
+        taskLabel: req.body.taskLabel
+    };
+    const { taskId } = req.body;
+
+    try {
+        const newTask = await modifyTask(taskId, taskContent);
+
+        if (!newTask) {
+            return res.status(HTTP_NOT_FOUND).send("Task not found.");
+        }
+
+        return res.status(HTTP_OK).json({ message: `Task ${newTask.taskid} modified` });
+
+    } catch (e) {
+        console.log(e);
+        return res.status(HTTP_ERROR).json({ message: 'Error modifying task.' });
+    }
+})
+
+/**
+ * 30. Change task status:
+ * 
+ * @param {*} req
+ * @param {String} req.body.taskId
+ * @param {String} req.body.taskStatus
+ *      enum: ['new', 'executing', 'completed', 'accepted', 'obsolete']
+ * 
+ * @param {*} res
+ * 
+ */
+router.put('/tasks/status', async (req, res) => {
+
+    const { taskStatus, taskId } = req.body;
+
+    try {
+        const newTask = await modifyTaskStatus(taskId, taskStatus);
+
+        if (!newTask) {
+            return res.status(HTTP_NOT_FOUND).send("Task not found.");
+        }
+
+        return res.status(HTTP_OK).json({ message: `Status of task ${newTask.taskid} modified` });
+
+    } catch (e) {
+        console.log(e);
+        return res.status(HTTP_ERROR).json({ message: 'Error modifying task.' });
+    }
+})
 
 /**
  * 31. Query the detailed information of a specified task:
@@ -142,5 +243,26 @@ router.delete('/projects/tasks', async (req, res) => {
         return res.status(HTTP_ERROR).json({ message: 'Error fetching log from ID.' });
     }
 })
+
+
+// let express = require('express');
+// let router = express.Router();
+
+// let task = require('../business/task');
+
+// /**
+//  * Create a new task
+//  */ 
+// router.post('/newTask',task.newTask);
+
+// /**
+//  * Modify task information
+//  */ 
+// router.post('/modifyTaskInfo',task.modifyTaskInfo);
+
+// /**
+//  * Change task status
+//  */ 
+// router.post('/changeProjectStatus',task.changeProjectStatus);
 
 module.exports = router;

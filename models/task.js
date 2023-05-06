@@ -2,35 +2,35 @@ const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
 
-    taskId: {
+    taskid: {
         type: String,
         required: true,
         unique: true,
     },
-    taskTitle: {
+    tasktitle: {
         type: String,
         required: true,
     },
-    taskDescription: {
+    taskdescription: {
         type: String,
     },
-    creatorId: {
-        type: String,
-        required: true,
-    },
-    executorId: {
+    creatorid: {
         type: String,
         required: true,
     },
-    taskStatus: {
+    executorid: {
+        type: String,
+        required: true,
+    },
+    taskstatus: {
         type: String,
         enum: ['new', 'executing', 'completed', 'accepted', 'obsolete'],
         required: true,
     },
-    parentTaskId: {
+    parenttaskid: {
         type: String,
     },
-    estimatedIime: {
+    estimatedtime: {
         type: Number,
     },
     importance: {
