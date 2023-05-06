@@ -9,7 +9,7 @@ const {
     getTasksFromProject,
     getTasksFromUser,
     addTaskToProject,
-    deleteTaskFromProject,
+    deleteTaskFromProject
 } = require("../business/task");
 
 const HTTP_OK = 200;
