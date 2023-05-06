@@ -73,6 +73,8 @@ this.checkReq = async function (req, res, next) {
                         if (docs.length > 0 && docs[0] != null) {
                             let authorizationvalidityexpirationdate = docs[0].authorizationvalidityexpirationdate;
                             if (authorizationvalidityexpirationdate > new Date()) {
+                                if (req.data==null) req.data ={};
+                                req.data.curUserid = docs[0].userid; //automatically add current logined user at every time
                                 isOk = true;
                             } else {
                                 throw new Error("The token has expired");
