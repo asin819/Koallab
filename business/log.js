@@ -1,12 +1,14 @@
 const { User } = require("../models/user");
 const { TaskLog } = require("../models/log");
 
+let base = require('../bin/base');
+
 const createLog = async (taskId, content, adderToken) => {
     const adderId = await getAdderId(adderToken);
-    const logid = await getNextLogId();
+    const logId = base.getObjectId();
 
     const newLog = new TaskLog({
-        logid: logid,
+        logid: logId,
         taskid: taskId,
         content,
         adderid: adderId
@@ -56,18 +58,4 @@ const getAdderId = async (adderToken) => {
     }
 };
 
-const getNextLogId = async () => {
-    try {
-        const largestLog = await TaskLog.findOne().sort({ logid: -1 });
-        console.log("logNum:" + largestLog);
-        if (largestLog) {
-            return (parseInt(largestLog.logid) + 1).toString();
-        } else {
-            return "1";
-        }
-    } catch (err) {
-        console.error(err.message);
-        throw new Error('Error while fetching the largest logid');
-    }
-};
 
