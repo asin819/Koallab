@@ -41,7 +41,7 @@ router.post('/modifyUserRoleInProject',project.modifyUserRoleInProject);
 /**
  * Get a project's information
  */ 
-router.post('/getProjectInfo',project.getProjectInfo);
+router.get('/getProjectInfo',project.getProjectInfo);
 
 /**
  * Get all projects that user has created

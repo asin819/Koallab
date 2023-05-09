@@ -175,7 +175,7 @@ this.addUserToProject = async function (req, res, next) {
                                     let myProject_User_Relationship = [
                                         { "projectid": projectid, "userid": userid, "role": role, },
                                     ];
-                                    await global.db.modProject_User_Relationship.replaceOne(myProject_User_Relationship).then((docs) => {
+                                    await global.db.modProject_User_Relationship.insertMany(myProject_User_Relationship).then((docs) => {
                                         if (docs.length > 0) {
                                             res.end(base.mkBizMsg("success", "user has been added!"));
                                         } else {
@@ -225,11 +225,9 @@ this.removeUserFromProject = async function (req, res, next) {
                                         "projectid":projectid,
                                         "userid":userid,
                                     }).then((docs) => {
-                                        if (docs.length > 0) {
+                                       
                                             res.end(base.mkBizMsg("success", "user has been removed!"));
-                                        } else {
-                                            throw new Error("Delete project user relationship data into database failed");
-                                        }
+                                      
                                     });
                                 }else{
                                     throw new Error("Project does not exist");
@@ -266,23 +264,29 @@ this.modifyUserRoleInProject = async function (req, res, next) {
         if (projectid != null & projectid != "") {
             if (userid != null && userid != "") {
                 if (role != null && role != "") {
-                    await global.db.modUser.find({"userid":userid}).then(async (docs) => {
-                        if(docs.length > 0 && docs[0] != null){
-                            await global.db.modProject.find({"projectid":projectid}).then(async (docs) => {
-                                if(docs.length > 0 && docs[0] != null){
-                                    await global.db.schProject_User_Relationship.updateMany({"projectid":projectid,"userid":userid},{
-                                        "role": role,
-                                    }).then(async (docs) => {
-                                        res.end(base.mkBizMsg("success", "project is restarted!"));
-                                    });
-                                }else{
-                                    throw new Error("Project does not exist");
-                                }
-                            });
-                        }else{
-                            throw new Error("User does not exist");
-                        }
-                    });
+                    if(role != "administrator" && role != "member"){
+                        throw new Error("the role must either by administrator or member");
+                    }else{
+                        await global.db.modUser.find({"userid":userid}).then(async (docs) => {
+                            if(docs.length > 0 && docs[0] != null){
+                                await global.db.modProject.find({"projectid":projectid}).then(async (docs) => {
+                                    if(docs.length > 0 && docs[0] != null){
+                                        await global.db.modProject_User_Relationship.findOneAndUpdate({"projectid":projectid,"userid":userid},{
+                                            "role": role,
+                                        },{
+                                            new: true
+                                        }).then(async (docs) => {
+                                            res.end(base.mkBizMsg("success", "User role has been modified!"));
+                                        });
+                                    }else{
+                                        throw new Error("Project does not exist");
+                                    }
+                                });
+                            }else{
+                                throw new Error("User does not exist");
+                            }
+                        });
+                    }
                 } else {
                     throw new Error("Please provide a valid role");
                 }
@@ -400,17 +404,17 @@ this.getMyParticipatedProjectList = async function (req, res, next) {
                         for(i = 0; i < docs.length ; i++){
                             participantingProjectidFromDb[i] = docs[i].projectid;
                         }
-                        await global.db.modProject.find({"project":participantingProjectidFromDb}).then(async (docs) => {
+                        await global.db.modProject.find({"projectid":participantingProjectidFromDb}).then(async (docs) => {
                             let i;
                             let resultData=[];
                             for(i = 0; i < docs.length ; i++){
-                                let projectidFromDb = docs[0].projectid;
-                                let projectnameFromDb = docs[0].projectname;
-                                let creatoridFromDb = docs[0].creatorid;
-                                let creationtimeFromDb = docs[0].creationtime;
-                                let projectstatusFromDb = docs[0].projectstatus;
-                                let StartimeFromDb = docs[0].Startime;
-                                let endtimeFromDb = docs[0].endtime;
+                                let projectidFromDb = docs[i].projectid;
+                                let projectnameFromDb = docs[i].projectname;
+                                let creatoridFromDb = docs[i].creatorid;
+                                let creationtimeFromDb = docs[i].creationtime;
+                                let projectstatusFromDb = docs[i].projectstatus;
+                                let StartimeFromDb = docs[i].Startime;
+                                let endtimeFromDb = docs[i].endtime;
                                 let singleData = {};
                                 singleData.projectid = projectidFromDb;
                                 singleData.projectname = projectnameFromDb;
