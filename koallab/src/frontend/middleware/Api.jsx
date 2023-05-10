@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as actions from "../api";
 
-const api =
+const Api =
     ({ dispatch }) =>
     (next) =>
     async (action) => {
@@ -34,4 +34,4 @@ const api =
         }
     };
 
-export default api;
+export default Api;
