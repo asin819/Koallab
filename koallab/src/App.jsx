@@ -1,4 +1,5 @@
 import React from "react";
+import {  useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Login from './frontend/pages/login/Login.jsx';
 import Homepage from './frontend/pages/homepage/Homepage.jsx';
@@ -9,6 +10,10 @@ import Sidebar from "./frontend/components/Sidebar.jsx";
 import './App.css'
 
 const App = () => {
+  
+  useEffect(() => {
+    this.props.fetchArticleDetails(); 
+  }, []);
 
   return (
     <BrowserRouter>

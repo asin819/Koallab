@@ -1,6 +1,6 @@
 import { legacy_createStore as createStore, applyMiddleware} from 'redux';
-import thunk from "redux-thunk";
-import apiMiddleware from "../middleware/api";
+import rootReducer from "../reducer/index";
+import apiMiddleware from "../middleware/index";
 
 const store = createStore(rootReducer, applyMiddleware(apiMiddleware));
 window.store = store;
