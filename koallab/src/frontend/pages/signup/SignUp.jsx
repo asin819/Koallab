@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import Button from "@mui/material/Button"; 
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -67,7 +67,12 @@ export default function SignUp() {
             autoComplete="current-password"
           />
           <Button 
-            variant="contained" 
+            variant="contained"
+            component="label"
+            sx={{ mt: 3, mb: 2, 
+              backgroundColor: '#293038',
+              "&:hover": { backgroundColor: 'a7aeb6'},
+            }}
           >
               Upload Photo
               <input 
