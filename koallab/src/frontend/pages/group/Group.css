@@ -1,0 +1,48 @@
+.group_container{
+    width: 75vw;
+    margin: 20px;
+    padding: 20px;
+}
+
+
+.top_section_group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.group_title{
+    flex: 15;
+}
+
+.wrenchIcon{
+    cursor: pointer;
+    width: 20px;
+    flex: 1;
+
+}
+
+
+.group_info{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.middle_section_group{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+
+}
+
+.group_user_title{
+    flex: 15;
+}
+
+.pencilIcon{
+    cursor: pointer;
+    flex: 1;
+}
+

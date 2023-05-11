@@ -1,0 +1,19 @@
+.GroupInfoCard_modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GroupInfoCard_container{
+    width: 300px;
+    background-color: #fefefe;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}

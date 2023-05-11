@@ -1,0 +1,15 @@
+.GroupUserCard_container{
+    display: flex;
+    width: 150px;
+    height: 70px;
+    background-color: #A7C7E7;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.GroupUserCard_trashIcon{
+    cursor: pointer;
+}
