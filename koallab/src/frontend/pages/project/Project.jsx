@@ -1,6 +1,6 @@
 import React from "react";
 import './Project.css'
-import { Box, Container } from "@mui/material";
+import { Box, Container, Divider } from "@mui/material";
 import TaskCompact from "../../components/old/TaskCompact";
 
 const Project = () => {
@@ -11,7 +11,9 @@ return(
     sx={{
         backgroundColor: "primary.light"
     }}>
-        Header Box
+        <h1> Project Title </h1>
+        <p> Project Info</p>
+
     </Box>
 
     <Box
@@ -19,15 +21,26 @@ return(
     sx={{
         backgroundColor: "primary.light"
     }}>
-        Completeness Box
+        <h3> x% Complete </h3>
     </Box>
+
+    <Divider />
 
     <Box
     classname = "memberBox"
     sx={{
         backgroundColor: "primary.light"
     }}>
-        Member Box
+        <h2> Members </h2>
+
+        <Box
+        classname = "taskLists"
+        sx={{
+            display: "flex",
+            flexDirection: "row"
+        }}>
+            Insert list of members
+        </Box>
     </Box>
 
     <Box
@@ -35,7 +48,7 @@ return(
     sx={{
         backgroundColor: "primary.light"
     }}>
-        Task Box
+        <h2>Tasks</h2>
         <Box
         classname = "taskLists"
         sx={{
@@ -48,6 +61,7 @@ return(
             sx={{
                 backgroundColor: "secondary.light"
             }}>
+                <h3>To Do</h3>
                 <TaskCompact TaskTitle="To Do" TaskImportance="Important"></TaskCompact>
             </Box>
             <Box
@@ -55,6 +69,7 @@ return(
             sx={{
                 backgroundColor: "secondary.light"
             }}>
+                <h3>In Progress</h3>
                 <TaskCompact TaskTitle="In Progress" TaskImportance="Important"></TaskCompact>
             </Box>
             <Box
@@ -62,6 +77,7 @@ return(
             sx={{
                 backgroundColor: "secondary.light",
             }}>
+                <h3>Completed</h3>
                 <TaskCompact TaskTitle="Completed" TaskImportance="Important"></TaskCompact>
             </Box>  
         </Box>
