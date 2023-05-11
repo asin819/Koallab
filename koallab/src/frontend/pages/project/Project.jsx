@@ -25,6 +25,7 @@ return(
         <UserIcon/> 
     </Box>
 
+    <Box
     classname = "headerBox"
     sx={{
         backgroundColor: "primary.light"
