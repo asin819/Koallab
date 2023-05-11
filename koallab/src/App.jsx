@@ -9,7 +9,6 @@ import Sidebar from "./frontend/components/Sidebar.jsx";
 import './App.css'
 
 const App = () => {
-
   return(
     <BrowserRouter>
     <Sidebar>
