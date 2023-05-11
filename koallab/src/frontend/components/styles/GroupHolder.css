@@ -1,0 +1,11 @@
+.GroupHolder_container{
+    display: flex;
+}
+
+.GroupHolder_projects{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 20px;
+    
+}

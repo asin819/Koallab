@@ -3,9 +3,13 @@ import './Group.css';
 import WrenchIcon from '@heroicons/react/24/solid/WrenchIcon';
 import PencilSquareIcon from '@heroicons/react/24/outline/PencilSquareIcon';
 import { SvgIcon } from "@mui/material";
-import GroupUserCard from "../../components/GroupUserCard.jsx";
-
+import { GroupHolder } from "../../components/GroupHolder";
 const Group = () => {
+
+
+    const projects=[
+        
+    ]
 return(
 <div className="group_container">
     <div className="top_section_group">
@@ -25,7 +29,8 @@ return(
         </SvgIcon>
     </div>
     <div className="group_user_cards">
-<GroupUserCard/>
+        <GroupHolder UserName={'User 1'} ProjectData={projects}/>
+        <GroupHolder UserName={'User 1'} ProjectData={projects}/>
     </div>
     
 </div>

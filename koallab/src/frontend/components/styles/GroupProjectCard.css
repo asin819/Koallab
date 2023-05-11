@@ -1,0 +1,33 @@
+.GroupProjectCard_container{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: 70px;
+    background-color: #FEFEFE;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.GroupProjectCard_title{
+    margin-top: 20px;
+    justify-self: center;
+}
+
+.GroupProjectCard_progressBar{
+    margin: 7px;
+    width: 90%;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+.GroupProjectCard_progressBar_fill{
+    width: 70%;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #2ecc71;
+    transition: width 0.5s ease-out;
+}

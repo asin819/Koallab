@@ -1,20 +1,10 @@
 import React from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import './styles/GroupUserCard.css';
 
-const GroupUserCard = () => {
-return(
-    <Box width={'120px'}>
-        <Card style={{backgroundColor: '#A7C7E7'}}>
-            <CardContent style={{alignContent: 'center', justifyContent: 'center'}}>
-                <p>hello</p>
-            </CardContent>
-        </Card>
-    </Box>
-  );
-
-
-
+export const GroupUserCard = ({Username}) => {
+return (
+    <div className="GroupUserCard_container">
+        {Username}
+    </div>
+)
 };
-
-
-export default GroupUserCard
