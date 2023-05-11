@@ -69,7 +69,7 @@ const Sidebar = ({children}) => {
 
                     </SvgIcon>
                    </div> */}
-                   <img src={KollabLogo} style={{width: "120px"}}/>
+                   <img src={KollabLogo} style={{width: "150px"}}/>
                </div>
                {
                    menuItemTop.map((item, index)=>(

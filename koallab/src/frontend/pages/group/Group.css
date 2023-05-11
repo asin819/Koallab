@@ -17,9 +17,11 @@
 }
 
 .wrenchIcon{
+    width: 20px;
     flex: 1;
 
 }
+
 
 .group_info{
     margin-top: 20px;
