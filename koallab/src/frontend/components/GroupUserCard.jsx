@@ -9,7 +9,7 @@ export const GroupUserCard = ({Username, editingState}) => {
         {Username}
 
         {editingState &&
-            <div className="GroupUserCard_minusIcon" style={{
+            <div className="GroupUserCard_trashIcon" style={{
                 marginTop: '5px',
                 marginLeft: '10px'}}>
                 <TrashIcon width={'20px'} color="red"/>

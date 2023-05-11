@@ -36,7 +36,8 @@ const handlePencilClick = () => {
         <h1 className="group_title">Group Name</h1>
         {isAdmin &&
         <div className="wrenchIcon" onClick={()=>setModal(true)}>
-          <WrenchIcon height={'24px'} width={'24px'}/>
+              <WrenchIcon height={'24px'} width={'24px'}/>        
+            
         </div>
         }
       </div>

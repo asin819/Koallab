@@ -17,6 +17,7 @@
 }
 
 .wrenchIcon{
+    cursor: pointer;
     width: 20px;
     flex: 1;
 
@@ -41,6 +42,7 @@
 }
 
 .pencilIcon{
+    cursor: pointer;
     flex: 1;
 }
 
