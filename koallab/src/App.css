@@ -48,7 +48,7 @@ main{
 }
 .active{
   /* background: lightskyblue; */
-  color: lightskyblue;
+  color: #A7C7E7;
 }
 .icon, .link_text{
   font-size: 20px;

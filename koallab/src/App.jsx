@@ -10,7 +10,7 @@ import './App.css'
 
 const App = () => {
 
-  return (
+  return(
     <BrowserRouter>
     <Sidebar>
     <Routes>
