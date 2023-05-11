@@ -67,6 +67,7 @@ this.checkReq = async function (req, res, next) {
         switch (req.originalUrl) {
             case "/": isOk = true; break;
             case "/login": isOk = true; break;
+            case "/register": isOk = true; break;
             default: {
                 if (req.query && req.query.token) {
                     await global.db.modUser.find({ "authorizationtoken": req.query.token }).then(async (docs) => {
