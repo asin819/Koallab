@@ -1,9 +1,20 @@
 import React from "react";
 import "./Homepage.css";
+import { useEffect , useState} from 'react'; 
 import { ImportantTaskCard } from "../../components/ImportantTaskCard.jsx";
 import { OtherTaskCard } from "../../components/OtherTaskCard.jsx";
 
 const Homepage = () => {
+    var token = sessionStorage.getItem("AuthToken")
+    
+    useEffect(() => {
+        if (token === null) {
+            Logout()
+        }else {
+            getUserId()
+        }
+      }, [])
+
     const now = new Date();
     const hour = now.getHours();
 
@@ -16,6 +27,19 @@ const Homepage = () => {
         greeting = "Good evening!";
     }
 
+    const [userId, setUserId] = useState([])
+
+    const getUserId = async () => {
+    await fetch(`http://127.0.0.1:3000/getUserid?token=${token}`)
+        .then((res) => res.json())
+        .then((res) => setUserId(res.userid))
+    }
+
+    const Logout = () => {
+        sessionStorage.removeItem("AuthToken")
+        navigate("/")
+    }
+
     const koalaClass = hour >= 20 || hour < 6 ? "sleepy" : "awake"; // Change Koala image based on time
 
     return (
@@ -26,7 +50,7 @@ const Homepage = () => {
                 <strong>Important Tasks</strong>
             </p>
             <div className="important-tasks-container">
-                <ImportantTaskCard projectID="yourProjectID" groupID="yourGroupID" />
+                <ImportantTaskCard userId="userId" groupID="yourGroupID" />
             </div>
             <p className="other_tasks">
                 <strong>Other Tasks</strong>

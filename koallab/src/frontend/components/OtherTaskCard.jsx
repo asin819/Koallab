@@ -3,24 +3,24 @@ import React, { useState, useEffect } from "react";
 export const OtherTaskCard = ({ projectID, groupID }) => {
     const [otherTasks, setOtherTasks] = useState([]);
 
-    useEffect(() => {
-        // Retrieve the list of other tasks from the database using an API call or database query
-        // For example, you can use the SQL query below and pass in the appropriate projectID and groupID
-        const query = `SELECT tasktitle, duedate, projectid, groupid
-                       FROM tasks
-                       WHERE importance = 'Other' AND projectid = '${projectID}' AND groupid = '${groupID}';`;
+    // useEffect(() => {
+    //     // Retrieve the list of other tasks from the database using an API call or database query
+    //     // For example, you can use the SQL query below and pass in the appropriate projectID and groupID
+    //     const query = `SELECT tasktitle, duedate, projectid, groupid
+    //                    FROM tasks
+    //                    WHERE importance = 'Other' AND projectid = '${projectID}' AND groupid = '${groupID}';`;
 
-        fetch("/api/getOtherTasks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setOtherTasks(data);
-            })
-            .catch((err) => console.error(err));
-    }, [projectID, groupID]);
+    //     fetch("/api/getOtherTasks", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ query }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setOtherTasks(data);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, [projectID, groupID]);
 
     return (
         <div className="OtherTaskCard_container">

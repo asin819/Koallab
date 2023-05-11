@@ -68,8 +68,8 @@ this.checkReq = async function (req, res, next) {
             case "/": isOk = true; break;
             case "/login": isOk = true; break;
             default: {
-                if (req.body && req.body.token) {
-                    await global.db.modUser.find({ "authorizationtoken": req.body.token }).then(async (docs) => {
+                if (req.query && req.query.token) {
+                    await global.db.modUser.find({ "authorizationtoken": req.query.token }).then(async (docs) => {
                         if (docs.length > 0 && docs[0] != null) {
                             let authorizationvalidityexpirationdate = docs[0].authorizationvalidityexpirationdate;
                             if (authorizationvalidityexpirationdate > new Date()) {

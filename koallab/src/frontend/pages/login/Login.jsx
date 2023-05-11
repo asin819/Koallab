@@ -26,15 +26,13 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  
   const login = (url) => {
     console.log(`login with: ${email} : ${password}`)
     const options = {
       mode: 'cors',
       method: "POST",
       headers: {
-        // "Access-Control-Allow-Origin": "*",
-        // "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Origin": "http://localhost:3000"
@@ -44,14 +42,14 @@ export default function SignIn() {
         password: password }),
     }
     fetch(url, options)
-      .then((res) => {
-        const data = res.json()
-        return { ...data, ok: res.ok }
+    .then(async (res) => {
+      const data = await res.json()
+      return { ...data, ok: res.ok }
       })
       .then((res) => {
         console.log(res)
         if (res.ok) {
-          sessionStorage.setItem("AuthToken", res.token)
+          sessionStorage.setItem("AuthToken", res.token )
           navigate("/home")
         } else {
           // Convert this to toast

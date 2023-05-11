@@ -18,7 +18,9 @@ this.login = async function (req, res, next) {
                             "authorizationvalidityexpirationdate":expireDate
                         }}).then((docs) => {
                             if (docs.modifiedCount > 0) {
-                                res.end(base.mkBizMsg("success", "login success!",stoken));
+                                res.status(200).json({
+                                    token: stoken,
+                                });
                             }else{
                                 throw new Error("Generate token failed");
                             }
@@ -39,6 +41,8 @@ this.login = async function (req, res, next) {
         res.end(base.mkBizMsg("fail", e.message ? e.message : e));
     }
 };
+
+
 
 /**
  * Save new user information into database
@@ -74,6 +78,31 @@ this.register = async function (req, res, next) {
         } else {
             throw new Error("Please provide a valid email or username");
         }
+    } catch (e) {
+        console.log(e);
+        res.end(base.mkBizMsg("fail", e.message ? e.message : e));
+    }
+};
+
+/**
+ * Save new user information into database
+ * email or username can't be same as existing
+ * email or username must provide one of them
+ * password can't be empty string
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+this.getUserid = async function (req, res, next) {
+    try {
+        let userToken = req.query.token;
+        await global.db.modUser.find({"authorizationtoken":userToken}).then(async (docs) => {
+            let userId = docs[0].userid;
+            res.status(200).json({
+                userid: userId,
+            });
+        }
+        )
     } catch (e) {
         console.log(e);
         res.end(base.mkBizMsg("fail", e.message ? e.message : e));
