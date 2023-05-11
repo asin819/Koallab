@@ -66,6 +66,16 @@ export default function SignUp() {
             id="password"
             autoComplete="current-password"
           />
+          <Button 
+            variant="contained" 
+          >
+              Upload Photo
+              <input 
+                hidden 
+                accept="image/*" 
+                multiple type="file" 
+              />
+          </Button>
           <Button
             type="submit"
             fullWidth
