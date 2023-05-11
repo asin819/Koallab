@@ -1,12 +1,30 @@
 import React from "react";
-import './Project.css'
+
+import './Project.css';
+import UserIcon from '@heroicons/react/24/solid/UserIcon';
 import { Box, Container, Divider } from "@mui/material";
 import TaskCompact from "../../components/old/TaskCompact";
+
 
 const Project = () => {
 return(
 <Container>
     <Box
+
+        sx={{
+          boxShadow: 3,
+          borderRadius: 2,
+          px: 4,
+          py: 6,
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+    >
+        <UserIcon/> 
+    </Box>
+
     classname = "headerBox"
     sx={{
         backgroundColor: "primary.light"
