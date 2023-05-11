@@ -18,7 +18,20 @@ const [isEditing, setIsEditing] = useState(false)
 const handlePencilClick = () => {
     setIsEditing(!isEditing);
 };
-
+const mockData = {
+  UserName: 'Test User',
+  ProjectData: [
+      {
+          Name: 'Project 1',
+          progress: 50
+      },
+      {
+          Name: 'Project 2',
+          progress: 75
+      }
+  ],
+  editingState: true,
+};
 
 
   return (
@@ -54,9 +67,7 @@ const handlePencilClick = () => {
         }
       </div>
       <div className="group_user_cards">
-        <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
-        <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
-        
+        <GroupHolder UserName={"User 1"} ProjectData={mockData.ProjectData} editingState = {isEditing}/>
       </div>
     </div>
   );
