@@ -9,34 +9,35 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
             setImportantTasks(...allTasks)
             
     }, [allTasks]);
-
-    return (
-        <div className="ImportantTaskCard_container">
-            <div className="ImportantTaskCard_title">Important Tasks</div>
-            {/* {importantTasks.map((importantTask) => (
-                <div className="ImportantTaskCard_task" key={importantTask.taskid}>
-                    <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
-                    <div className="ImportantTaskCard_taskDescription">
-                        {importantTask.taskDescription}
+    if(importantTasks){
+        return (
+            <div className="ImportantTaskCard_container">
+                <div className="ImportantTaskCard_title">Important Tasks</div>
+                {/* {importantTasks.map((importantTask) => (
+                    <div className="ImportantTaskCard_task" key={importantTask.taskid}>
+                        <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
+                        <div className="ImportantTaskCard_taskDescription">
+                            {importantTask.taskDescription}
+                        </div>
+                        <div className="ImportantTaskCard_taskDueDate">
+                            Due Date: {importantTask.estimatedTime}
+                        </div>
                     </div>
-                    <div className="ImportantTaskCard_taskDueDate">
-                        Due Date: {importantTask.estimatedTime}
-                    </div>
+                ))} */}
+                {/* {
+              Object.entries({importantTasks}).map((importantTask) => (
+                <div className="ImportantTaskCard_task" key={importantTask.taskId}>
+                <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
+                <div className="ImportantTaskCard_taskDescription">
+                    {importantTask.taskDescription}
                 </div>
-            ))} */}
-            {/* {
-          Object.entries({importantTasks}).map((importantTask) => (
-            <div className="ImportantTaskCard_task" key={importantTask.taskId}>
-            <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
-            <div className="ImportantTaskCard_taskDescription">
-                {importantTask.taskDescription}
+                <div className="ImportantTaskCard_taskDueDate">
+                    Due Date: {importantTask.estimatedTime}
+                </div>
             </div>
-            <div className="ImportantTaskCard_taskDueDate">
-                Due Date: {importantTask.estimatedTime}
+              ))
+              } */}
             </div>
-        </div>
-          ))
-          } */}
-        </div>
-    );
+        );
+    }
 };
