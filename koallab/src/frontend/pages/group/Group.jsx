@@ -23,6 +23,10 @@ useEffect(() => {
   }
 }, [])
 
+useEffect(() => {
+  
+},[])
+
 const checkAdmin = (groupId,userId) => {
   
   const options = {
@@ -152,7 +156,14 @@ const handlePencilClick = () => {
       <div className="group_user_cards">
         <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
         <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
-        
+        {
+          Object.entries({userAndProjects}).map((item) => (
+              <GroupHolder 
+              UserName={item.Name} 
+              editingState={item.isEditing}
+              ProjectData={item.Projects}/>
+          ))
+          }
       </div>
     </div>
   );

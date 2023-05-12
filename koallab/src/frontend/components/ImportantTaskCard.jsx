@@ -14,15 +14,29 @@ export const ImportantTaskCard = ({ userId, groupID }) => {
     }, [userId, groupID]);
 
     const getImportantTasks = async () => {
+        console.log(token)
+        console.log(userId)
         await fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`)
             .then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => findImportantTasks(res))
     }
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")
     }
     const findImportantTasks = (allTasks) => {
-        console.log(allTasks);
+        console.log(allTasks.tasks);
+        var arr = [];
+        Object.keys(allTasks).forEach(function(key) {
+            arr.push(allTasks[key]);
+        });
+        var important = [];
+        arr.forEach((task,index) => {
+            if(task.importance === "Important"){
+                important.push(task);
+                console.log("here11")
+            }
+            console.log("here")
+        });
     } 
     
            
