@@ -11,6 +11,7 @@ import KollabLogo from "../../assets/KoallabLogoDark.png"
 import { red } from "@mui/material/colors";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'; 
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -129,18 +130,23 @@ export default function SignIn() {
           >
             Sign In
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
+          <Grid container>
+            {/* <Grid item xs>
               <Link href="#" variant="body2">
                 {"Forgot password?"}
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
+              {/* <Link to='signup' variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link> */}
+              <NavLink to='/signup'>
+                <Link variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
+              </NavLink>
             </Grid>
-          </Grid> */}
+          </Grid>
         </Box>
       </Box>
     </Container>

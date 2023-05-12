@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import KollabLogo from "../../assets/KoallabLogoDark.png"
 import { red } from "@mui/material/colors";
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -20,7 +21,20 @@ export default function SignUp() {
     });
   };
 
+  const navigate = useNavigate()
+
+  const SignupFunction= () => {
+    navigate('/')
+  }
   return (
+    <div className="Signup_container" style={{
+      diplay: 'flex',
+      width: '100vw',
+      height: '100vh',
+      marginTop: '50px',
+      justifyContent: 'center',
+      alignContent: 'center',
+    }}>
 <Container component="main" maxWidth="sm">
       <Box
         sx={{
@@ -71,6 +85,7 @@ export default function SignUp() {
             component="label"
             sx={{ mt: 3, mb: 2, 
               backgroundColor: '#293038',
+              marginLeft: '175px',
               "&:hover": { backgroundColor: 'a7aeb6'},
             }}
           >
@@ -89,12 +104,13 @@ export default function SignUp() {
                 backgroundColor: '#293038',
                 "&:hover": { backgroundColor: 'a7aeb6'},
             }}
+            onClick={() => SignupFunction()}
           >
             Sign Up
           </Button>
         </Box>
       </Box>
     </Container>
-    
+    </div>
   );
 }
