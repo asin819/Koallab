@@ -67,11 +67,17 @@ const Homepage = () => {
               "Origin": "http://localhost:3000"
             },
           }
-        fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`,options)
-           .then(async (res) => await res.json())
+        fetch(`http://127.0.0.1:3000/getTaskListByUserid?token=${token}&userid=${userId}`,options)
+            .then(async (res) => {
+        
+            let data = await res.json();
+            data = JSON.parse(data);
+            console.log(data)
+            return { ...data, ok: res.ok }
+        })
            .then((res) => {
-            let tasks = res.tasks
-            console.log(type(res.tasks))
+            let tasks = res.data
+            console.log(tasks)
                let arr = [];
                Object.keys(tasks).forEach(function(key) {
                    arr.push(tasks[key]);

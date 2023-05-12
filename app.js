@@ -12,7 +12,7 @@ require('./bin/initdb');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 
-let tasksRouter = require('./routes/tasks');
+let tasksRouter = require('./routes/task_ares');
 let logsRouter = require('./routes/logs');
 let groupsRouter = require('./routes/groups');
 let projectsRouter = require('./routes/projects');

@@ -1,104 +1,104 @@
-const { Task } = require("../models/task");
-const { User } = require("../models/user");
-const { ProjectTask } = require("../models/project-task");
+// const { Task } = require("../models/task");
+// const { User } = require("../models/user");
+// const { ProjectTask } = require("../models/project-task");
 
-let base = require('../bin/base');
+// let base = require('../bin/base');
 
-const createTask = async (task, adderToken) => {
-    const adderId = await getAdderId(adderToken);
-    const taskId = base.getObjectId();
+// const createTask = async (task, adderToken) => {
+//     const adderId = await getAdderId(adderToken);
+//     const taskId = base.getObjectId();
 
-    const newTask = new Task({
-        taskid: taskId,
-        tasktitle: task.taskTitle,
-        taskdescription: task.taskDescription,
-        creatorid: adderId,
-        executorid: task.executorId,
-        taskstatus: task.taskStatus,
-        parenttaskid: task.parentTaskId,
-        estimatedtime: task.estimatedTime,
-        importance: task.importance,
-        tasklabel: task.taskLabel
-    });
+//     const newTask = new Task({
+//         taskid: taskId,
+//         tasktitle: task.taskTitle,
+//         taskdescription: task.taskDescription,
+//         creatorid: adderId,
+//         executorid: task.executorId,
+//         taskstatus: task.taskStatus,
+//         parenttaskid: task.parentTaskId,
+//         estimatedtime: task.estimatedTime,
+//         importance: task.importance,
+//         tasklabel: task.taskLabel
+//     });
 
-    return await newTask.save();
-}
+//     return await newTask.save();
+// }
 
-const modifyTask = async (taskId, task) => {
-    const modifiedTask = await Task.findOne({ taskid: taskId });
+// const modifyTask = async (taskId, task) => {
+//     const modifiedTask = await Task.findOne({ taskid: taskId });
 
-    modifiedTask.tasktitle =  task.taskTitle;
-    modifiedTask.taskdescription =  task.taskDescription;
-    modifiedTask.estimatedtime =  task.estimatedTime;
-    modifiedTask.importance =  task.importance;
-    modifiedTask.tasklabel =  task.taskLabel;
+//     modifiedTask.tasktitle =  task.taskTitle;
+//     modifiedTask.taskdescription =  task.taskDescription;
+//     modifiedTask.estimatedtime =  task.estimatedTime;
+//     modifiedTask.importance =  task.importance;
+//     modifiedTask.tasklabel =  task.taskLabel;
 
-    return await modifiedTask.save();
-}
+//     return await modifiedTask.save();
+// }
 
-const modifyTaskStatus = async (taskId, taskstatus) => {
-    const modifiedTask = await Task.findOne({ taskid: taskId });
+// const modifyTaskStatus = async (taskId, taskstatus) => {
+//     const modifiedTask = await Task.findOne({ taskid: taskId });
 
-    modifiedTask.taskstatus =  taskstatus;
+//     modifiedTask.taskstatus =  taskstatus;
 
-    return await modifiedTask.save();
-}
+//     return await modifiedTask.save();
+// }
 
-const getTaskInfo = async (taskId) => {
-    return await Task.findOne({ taskid: taskId });
-}
+// const getTaskInfo = async (taskId) => {
+//     return await Task.findOne({ taskid: taskId });
+// }
 
-const getTasksFromProject = async (projectId) => {
-    const taskRef = await ProjectTask.find({ projectid: projectId });
-    const taskIds = taskRef.map(thisTask => thisTask.taskid);
+// const getTasksFromProject = async (projectId) => {
+//     const taskRef = await ProjectTask.find({ projectid: projectId });
+//     const taskIds = taskRef.map(thisTask => thisTask.taskid);
 
-    return await Task.find({ taskid: { $in: taskIds } });
-}
+//     return await Task.find({ taskid: { $in: taskIds } });
+// }
 
-const getTasksFromUser = async (userId) => {
-    console.log(userId)
-    return await Task.find({ executorid: userId });
-}
+// const getTasksFromUser = async (userId) => {
+//     console.log(userId)
+//     return await Task.find({ executorid: userId });
+// }
 
-const addTaskToProject = async (taskId, projectId, adderToken) => {
-    const adderId = await getAdderId(adderToken);
+// const addTaskToProject = async (taskId, projectId, adderToken) => {
+//     const adderId = await getAdderId(adderToken);
 
-    const newTaskRef = new ProjectTask({
-        projectid: projectId,
-        taskid: taskId,
-        adderid: adderId
-    })
+//     const newTaskRef = new ProjectTask({
+//         projectid: projectId,
+//         taskid: taskId,
+//         adderid: adderId
+//     })
 
-    return await newTaskRef.save();
-}
+//     return await newTaskRef.save();
+// }
 
-const deleteTaskFromProject = async (taskId, projectId) => {
-    return await ProjectTask.findOneAndDelete({
-        projectid: projectId,
-        taskid: taskId
-    });
-}
+// const deleteTaskFromProject = async (taskId, projectId) => {
+//     return await ProjectTask.findOneAndDelete({
+//         projectid: projectId,
+//         taskid: taskId
+//     });
+// }
 
-module.exports = {
-    createTask,
-    modifyTask,
-    modifyTaskStatus,
-    getTaskInfo,
-    getTasksFromProject,
-    getTasksFromUser,
-    addTaskToProject,
-    deleteTaskFromProject
-};
+// module.exports = {
+//     createTask,
+//     modifyTask,
+//     modifyTaskStatus,
+//     getTaskInfo,
+//     getTasksFromProject,
+//     getTasksFromUser,
+//     addTaskToProject,
+//     deleteTaskFromProject
+// };
 
-const getAdderId = async (adderToken) => {
-    try {
-        const adder = await User.findOne({ authorizationtoken: adderToken });
-        return adder.userid;
-    } catch (err) {
-        console.error(err.message);
-        throw new Error('Error while fetching the adder id');
-    }
-}   
+// const getAdderId = async (adderToken) => {
+//     try {
+//         const adder = await User.findOne({ authorizationtoken: adderToken });
+//         return adder.userid;
+//     } catch (err) {
+//         console.error(err.message);
+//         throw new Error('Error while fetching the adder id');
+//     }
+// }   
 //let base = require('../bin/base');
 
 // /**
