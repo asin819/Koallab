@@ -22,7 +22,6 @@
 
 }
 
-
 .project_info{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -84,16 +83,6 @@
     padding: 20px;
 }
 
-.todo_task{
-    width: 250px;
-    background-color: #EDB693;
-    border-radius: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    padding: 20px;
-    display: inline-block;
-    margin: 0 auto;
-}
-
 .progress_container {
     background-color: #E9EAEC;
     width: 300px;
@@ -105,16 +94,6 @@
     padding: 20px;
 }
 
-.progress_task{
-    width: 250px;
-    background-color: #FFFFFF;
-    border-radius: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    padding: 20px;
-    display: inline-block;
-    margin: 0 auto;
-}
-
 .completed_container {
     background-color: #E9EAEC;
     width: 300px;
@@ -124,16 +103,6 @@
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-}
-
-.completed_task{
-    width: 250px;
-    background-color: #FFFFFF;
-    border-radius: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    padding: 20px;
-    display: inline-block;
-    margin: 0 auto;
 }
 
 .task_section_header{

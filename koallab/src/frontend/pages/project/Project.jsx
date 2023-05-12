@@ -72,9 +72,7 @@ export const Project = () => {
                         </button>
                     </div>
                     <div className="todo_container">
-                        <div className="todo_task">
                             <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
-                        </div>
                     </div>
                 </div>
 
@@ -88,9 +86,7 @@ export const Project = () => {
                         </button>
                     </div>
                     <div className="progress_container">
-                        <div className="progress_task">
                             <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
-                        </div>
                     </div>
                 </div>
 
@@ -99,14 +95,13 @@ export const Project = () => {
                         <h2 className="completed">
                         <strong>Completed</strong>
                     </h2>
-                    <button className="add_button" onClick={() => console.log('Add button clicked forCompleted')}>
+                    <button className="add_button" onClick={() => console.log('Add button clicked for Completed')}>
                         <PlusIcon className="plus_icon" />
                     </button>
                 </div>
                 <div className="progress_container">
-                    <div className="progress_task">
                         <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
-                    </div>
+                        <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
                 </div>
             </div>
         </div>
