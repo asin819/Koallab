@@ -89,30 +89,9 @@ const Homepage = () => {
                    }
                });
                setallTasks(important)
-               console.log(allTasks)
            })
         }
-    //   const getImportantTasks =  (userId) => {
-    //     fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`)
-    //        .then(async (res) => await res.json())
-    //        .then((res) => {
-    //         let tasks = res.tasks
-    //         console.log(type(res.tasks))
-    //            let arr = [];
-    //            Object.keys(tasks).forEach(function(key) {
-    //                arr.push(tasks[key]);
-    //            });
-    //            let important = [];
-    //            arr.forEach((task,index) => {
-    //                if(task.importance === "Important"){
-    //                    important.push(task);
-    //                }
-    //            });
-    //            setallTasks(important)
-    //            console.log(allTasks)
-    //        })
-    //     }
-      
+       
 
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")

@@ -1,7 +1,8 @@
 import React from "react";
+import {  useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Login from './frontend/pages/login/Login.jsx';
-import Homepage from './frontend/pages/homepage/Homepage.jsx';
+import Homepage from './frontend/pages/homepage/homepage.jsx';
 import Group from './frontend/pages/group/Group.jsx'
 import Project from './frontend/pages/project/Project.jsx'
 import UserProfile from './frontend/pages/userProfile/UserProfile.jsx'
@@ -10,7 +11,8 @@ import './App.css'
 import SignUp from "./frontend/pages/signup/SignUp.jsx";
 
 const App = () => {
-  return(
+
+  return (
     <BrowserRouter>
     <Sidebar>
     <Routes>
