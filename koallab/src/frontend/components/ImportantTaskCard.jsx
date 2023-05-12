@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 export const ImportantTaskCard = ({ allTasks, groupID }) => {
 
-  
+
     const [importantTasks, setImportantTasks] = useState([...allTasks]);
 
     useEffect(() => {
-            console.log(allTasks)
-            setImportantTasks(...allTasks)
-            
+        console.log(allTasks)
+        setImportantTasks(...allTasks)
+
     }, [allTasks]);
     if(importantTasks){
         return (
