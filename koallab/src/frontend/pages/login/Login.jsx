@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import KollabLogo from "../../assets/KoallabLogoDark.png"
 import { red } from "@mui/material/colors";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'; 
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -19,6 +21,43 @@ export default function SignIn() {
       password: data.get("password"),
     });
   };
+
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  
+  const login = (url) => {
+    console.log(`login with: ${email} : ${password}`)
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({ 
+        email: email, 
+        password: password }),
+    }
+    fetch(url, options)
+    .then(async (res) => {
+    
+      let data = await res.json();
+      data = JSON.parse(data);
+      return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          sessionStorage.setItem("AuthToken", res.token )
+          navigate("/home")
+        } else {
+          // Convert this to toast
+          toast.error(res.ErrorMessage, ToastOptions)
+        }
+      })
+  }
 
   return (
 <Container component="main" maxWidth="sm">
@@ -45,6 +84,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -55,6 +95,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -68,6 +109,7 @@ export default function SignIn() {
                 backgroundColor: '#293038',
                 "&:hover": { backgroundColor: 'a7aeb6'},
             }}
+            onClick={() => login("http://127.0.0.1:3000/login")}
           >
             Sign In
           </Button>

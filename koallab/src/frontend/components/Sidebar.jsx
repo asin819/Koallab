@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import ChartBarIcon from '@heroicons/react/24/outline/ChartBarIcon';
 import ClipBoardIcon from '@heroicons/react/24/outline/ClipboardIcon';
@@ -18,26 +18,26 @@ const Sidebar = ({children}) => {
             path:"/",
             name:"Home",
             icon:<SvgIcon >
-                           <ChartBarIcon/>
+                <ChartBarIcon/>
             </SvgIcon>
- 
+
         },
         {
             path:"/project",
             name:"Projects",
             icon:<SvgIcon>
                 <ClipBoardIcon/>
-                </SvgIcon>
-                
+            </SvgIcon>
+
         },
         {
             path:"/group",
             name:"Groups",
             icon:<SvgIcon>
                 <UsersIcon/>
-                </SvgIcon>
+            </SvgIcon>
         }
-        
+
     ]
 
     const menuItemBottom = [
@@ -56,42 +56,40 @@ const Sidebar = ({children}) => {
             </SvgIcon>
         }
     ]
+
+    const location = useLocation();
+
+    if (location.pathname === '/login') {
+        return <main>{children}</main>;
+    }
+
     return (
         <div className="container">
-           <div style={{width: "200px"}} className="sidebar">
-               <div className="top_section">
-                {/* <KollabLogo/>
-             
-                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
-                    <SvgIcon>
-                    <Bars3 onClick={toggle}/>
+            <div style={{width: "200px"}} className="sidebar">
+                <div className="top_section">
+                    <img src={KollabLogo} style={{width: "150px"}}/>
+                </div>
+                {
+                    menuItemTop.map((item, index)=>(
+                        <NavLink to={item.path} key={index} className="link" activeclassName="active">
+                            <div className="icon">{item.icon}</div>
+                            <div style={{display: "block"}} className="link_text">{item.name}</div>
+                        </NavLink>
+                    ))
+                }
+                <div className='bottom_section'>
+                    {
+                        menuItemBottom.map((item, index)=>(
+                            <NavLink to={item.path} key={index} className="link" activeclassName="active">
+                                <div className="icon">{item.icon}</div>
+                                <div style={{display: "block"}} className="link_text">{item.name}</div>
+                            </NavLink>
+                        ))
+                    }
 
-                    </SvgIcon>
-                   </div> */}
-                   <img src={KollabLogo} style={{width: "150px"}}/>
-               </div>
-               {
-                   menuItemTop.map((item, index)=>(
-                       <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                           <div className="icon">{item.icon}</div>
-                           <div style={{display: "block"}} className="link_text">{item.name}</div>
-                       </NavLink>
-                   ))
-               }
-               <div className='bottom_section'>
-               {
-                menuItemBottom.map((item, index)=>(
-                    <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                        <div className="icon">{item.icon}</div>
-                        <div style={{display: "block"}} className="link_text">{item.name}</div>
-                    </NavLink>
-                ))
-               }
-
-               </div>
-           </div>
-           <main>{children}</main>
+                </div>
+            </div>
+            <main>{children}</main>
         </div>
     );
 };
