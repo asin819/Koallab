@@ -13,18 +13,28 @@ const App = () => {
 
   return (
     <BrowserRouter>
-    <Sidebar>
-    <Routes>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/" element={<Homepage/>}/>
-      <Route path="/group" element={<Group/>}/>
-      <Route path="/project" element={<Project/>}/>
-      <Route path="/userProfile" element={<UserProfile/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
-    </Routes>
-    </Sidebar>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/*" element={<AppWithSidebar />} />
+      </Routes>
     </BrowserRouter>
   )
 }
+
+const AppWithSidebar = () => {
+  return (
+    <Sidebar>
+      <Routes>
+        <Route path="/home" element={<Homepage />} />
+        <Route path="group" element={<Group />} />
+        <Route path="project" element={<Project />} />
+        <Route path="userProfile" element={<UserProfile />} />
+      </Routes>
+    </Sidebar>
+  );
+}
+
 
 export default App

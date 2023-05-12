@@ -1,59 +1,32 @@
-"# project-group-khaki-koalas" 
-## Khaki Koalas Back-end
+![KoallabLogoDark](https://github.com/UOA-CS732-SE750-Students-2023/project-group-khaki-koalas/assets/47189647/15c358d8-abd6-4f53-8664-fd95020f9626)
 
-## Configure the environment
 
-### Install Nodejs
+Koallab is a collaboration tools, targeted at university students, that allows them to keep track of their projects and groups much better. Key features include:
+- A group page where you can see what other projects and assignments your group is working on, with it's progress, so you can schedule your meetings and delegate current tasks accordingly
+- A project page where you can see all the tasks for that project, move them around to mark them as either to-do, in progress or completed. Additional you can share your resources here as well, that will be accessible to the whole group.
 
-Refer to the official website: https://nodejs.org/
+## Required downloads
+To run this on your device, you will require to have:
+- Node: Refer to the official website: https://nodejs.org/
+- MongoDB: Download the server program for Mongodb: https://www.mongodb.com/try/download/community. Download the Monodb client: https://www.mongodb.com/try/download/compass
 
-### Download Mongodb
-
-Download the server program for Mongodb: https://www.mongodb.com/try/download/community
-
-Download the Monodb client: https://www.mongodb.com/try/download/compass
-
-### Start Mongodb
-
-Go to the directory of the downloaded Mongodb and enter the bin subdirectory, then execute the following command:
-```sh
-./mongod --dbpath ./db
-```
-
-the "./db" is your database file "./db" is the path to save your database file, if it doesn't exist, you need to create it.
-
-### Initialize the project
-
-Download the source code of khakikoalas_backend and execute the following command to initialize the environment:
+## Starting the application
+To install all the dependencies, navigate to the project directory and use
 ```sh
 npm install
 ```
-
-### Start the project
-
-You can start debugging directly in VSCode by clicking on "Debug" and selecting "Nodejs". You can also start the project directly with the following command:
+To run the vite backed front-end, change directory to Koallab and use:
 ```sh
-npm run start
+npm run dev
 ```
 
-## Project description
-
-This project is started from /bin/www and will create an HTTP server to provide services on port 3000.
-
-When the project is started, it will automatically initialize the database structure and add the initial basic data automatically to facilitate R&D and debugging.
-
-It should be noted that the database must be started first before starting this project, otherwise it will not be able to complete the database initialization.
-
-This project can be executed repeatedly, and the database will only be initialized once. If you need to reinitialize the database, please delete the database that already exists now, and then restart the project. When the project starts, if the database is detected not to exist, the database will be initialized automatically.
-
-In this project, all routing configurations are placed in the directory routes, each business can have its own route, it is recommended to put the same type of routes together.
-
-In this project, all the business logic is put in the directory business, each business can have its own business logic file, it is recommended to put the same type of business logic together.
-
-In addition, some basic functions and functions are stored in the bin directory, so if you need to add new functions that may be used globally, it is recommended to put them in this path. Some of the basic functions are already provided in base.js.
-
-initmodel.js is a file dedicated to initialize the data model, please do not modify this file unless you need to adjust the database model.
-
-initdb.js is a file dedicated to initialize the database basic data, if you need to add your own basic data, you can add it in this file.
-
-Finally, all the static resource files are stored under the public path, with images dedicated to storing images. If you want to store more types of files, please create a directory under this path.
+## Navigating the web app
+Due to time constraint issues, the logic for the application remains incomplete, however, you may use these following paths in the browser if you run into a problem:
+```sh
+Homepage: '/'
+Projects Page: '/project'
+Groups Page: '/group'
+User Profile: '/userProfile'
+Login: '/login'
+Signup: '/signup'
+```

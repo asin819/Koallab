@@ -17,7 +17,7 @@ const Sidebar = ({ children }) => {
   const [projectResponse, setProjectResponse] = useState([]);
   const [groupResponse, setGroupResponse] = useState([]);
 
-  const [userId, setUserId] = useState([])
+  const [userId, setUserId] = useState(null)
 
   const [projects, setProjects] = useState([]);
   const [groups, setGroups] = useState([]);
@@ -33,11 +33,6 @@ const Sidebar = ({ children }) => {
     }
   }, [userId]);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     getDataFrom(`/getMyParticipatedGroupList?userid=${userId}&token=${token}`);
-  //   }
-  // }, [userId]);
 
   useEffect(() => {
     setProjects(projectResponse.map(item => item.projectname));
@@ -70,7 +65,7 @@ const Sidebar = ({ children }) => {
           setUserId(res.token)
         } else {
           // Convert this to toast
-        
+
         }
       })
   }
@@ -102,7 +97,7 @@ const Sidebar = ({ children }) => {
           }
         } else {
           // Convert this to toast
-         
+
         }
       })
   }
