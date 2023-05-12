@@ -49,11 +49,22 @@ app.use('/', groupsRouter);
 app.use('/', projectsRouter);
 
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('Running in production!');
+
+  // Make all files in that folder public
+  app.use(express.static(path.join(__dirname, '../../koallab/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../koallab/dist/index.html'));
+  });
+}
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   // next(createError(404));
 
-  res.end(base.mkBizMsg("fail", "The API did not exist:"+req.originalUrl));
+  res.end(base.mkBizMsg("fail", "The API did not exist:" + req.originalUrl));
 
 });
 
