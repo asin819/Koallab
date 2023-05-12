@@ -1,0 +1,111 @@
+.project_container{
+    width: 75vw;
+    margin: 20px;
+    padding: 20px;
+}
+
+.top_section_project{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.project_title{
+    flex: 15;
+}
+
+.wrenchIcon{
+    cursor: pointer;
+    width: 20px;
+    flex: 1;
+
+}
+
+.project_info{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.middle_section_project{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+
+}
+
+.view_resources{
+    background-color: #A7C7E7;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+}
+
+
+.project_member_title{
+    flex: 15;
+}
+
+.pencilIcon{
+    cursor: pointer;
+    flex: 1;
+}
+
+.project_member{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.task_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 15px;
+}
+
+.todo_container{
+    background-color: #E9EAEC;
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.progress_container {
+    background-color: #E9EAEC;
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.completed_container {
+    background-color: #E9EAEC;
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.task_section_header{
+    display: flex;
+    gap: 10px;
+}

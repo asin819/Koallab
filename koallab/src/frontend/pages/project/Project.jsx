@@ -1,117 +1,113 @@
-import React from "react";
+import React, {useState} from "react";
 
 import './Project.css';
-import UserIcon from '@heroicons/react/24/solid/UserIcon';
-import { Box, Container, Divider } from "@mui/material";
-import TaskCompact from "../../components/old/TaskCompact";
+import WrenchIcon from "@heroicons/react/24/solid/WrenchIcon.js";
+import ProjectInfoCard from "../../components/ProjectInfoCard.jsx";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon.js";
+import {ProjectMemberCard} from "../../components/ProjectMemberCard.jsx";
+import {ProjectTask} from "../../components/ProjectTask.jsx";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon.js";
 
+export const Project = () => {
 
-const Project = () => {
-return(
+    const [openModal, setModal] = useState(false);
 
+    const isAdmin = true;
 
+    const [isEditing, setIsEditing] = useState(false)
 
-<Container>
-    <Box
+    const handlePencilClick = () => {
+        setIsEditing(!isEditing);
+    };
 
-        sx={{
-          boxShadow: 3,
-          borderRadius: 2,
-          px: 4,
-          py: 6,
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-    >
-        <UserIcon/> 
-    </Box>
+    return(
+        <div className="project_container">
+            {openModal &&
+                <ProjectInfoCard
+                    ProjectId={'123'}
+                    ProjectName={'Khaki-Koalas'}
+                    CreatorID={'456'}
+                    CreationTime={'Something'}
+                    ProjectStatus={'Active'}
+                    ModalStateFunction={setModal}
+                />}
+            <div className="top_section_project">
+                <h1 className="project_title">Project Name</h1>
+                {isAdmin &&
+                    <div className="wrenchIcon" onClick={()=>setModal(true)}>
+                        <WrenchIcon height={'24px'} width={'24px'}/>
+                    </div>
+                }
+            </div>
+            <div className="project_info">
+                <p>Lorem Ipsum</p>
+            </div>
+            <div className="view_resources">
+                <p>% Complete</p>
+            </div>
+            <hr />
+            <div className="middle_section_project">
+                <h2 className="project_member_title"> Members</h2>
+                {isAdmin &&
+                    <div className="pencilIcon" onClick={() => handlePencilClick()}>
+                        <PencilSquareIcon height={'24px'}/>
+                    </div>
+                }
+            </div>
+            <div className="project_member">
+                <ProjectMemberCard Username={"User 1"} editingState={isEditing}/>
+                <ProjectMemberCard Username={"User 2"} editingState={isEditing}/>
+            </div>
+            <h2 className="tasks">
+                <strong>Tasks</strong>
+            </h2>
+            <div className="task_container">
+                <div className="column_container">
+                    <div className="task_section_header">
+                        <h2 className="todo">
+                            <strong>To-do</strong>
+                        </h2>
+                        <button className="add_button" onClick={() => console.log('Add button clicked for To-do')}>
+                            <PlusIcon className="plus_icon" />
+                        </button>
+                    </div>
+                    <div className="todo_container">
+                            <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
+                    </div>
+                </div>
 
-    <Box
-    classname = "headerBox"
-    sx={{
-        backgroundColor: "primary.light"
-    }}>
-        <h1> Project Title </h1>
-        <p> Project Info</p>
+                <div className="column_container">
+                    <div className="task_section_header">
+                        <h2 className="progress">
+                            <strong>In Progress</strong>
+                        </h2>
+                        <button className="add_button" onClick={() => console.log('Add button clicked for In Progress')}>
+                            <PlusIcon className="plus_icon" />
+                        </button>
+                    </div>
+                    <div className="progress_container">
+                            <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
+                    </div>
+                </div>
 
-    </Box>
+                <div className="column_container">
+                    <div className="task_section_header">
+                        <h2 className="completed">
+                        <strong>Completed</strong>
+                    </h2>
+                    <button className="add_button" onClick={() => console.log('Add button clicked for Completed')}>
+                        <PlusIcon className="plus_icon" />
+                    </button>
+                </div>
+                <div className="progress_container">
+                        <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
+                        <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
+                </div>
+            </div>
+        </div>
+        </div>
 
-    <Box
-    classname = "completenessBox"
-    sx={{
-        backgroundColor: "primary.light"
-    }}>
-        <h3> x% Complete </h3>
-    </Box>
-
-    <Divider />
-
-    <Box
-    classname = "memberBox"
-    sx={{
-        backgroundColor: "primary.light"
-    }}>
-        <h2> Members </h2>
-
-        <Box
-        classname = "taskLists"
-        sx={{
-            display: "flex",
-            flexDirection: "row"
-        }}>
-            Insert list of members
-        </Box>
-    </Box>
-
-    <Box
-    classname = "tasks"
-    sx={{
-        backgroundColor: "primary.light"
-    }}>
-        <h2>Tasks</h2>
-        <Box
-        classname = "taskLists"
-        sx={{
-            display: "flex",
-            flexDirection: "row"
-        }}>
-
-          <Box
-            classname = "toDoTasks"
-            sx={{
-                backgroundColor: "secondary.light"
-            }}>
-                <h3>To Do</h3>
-                <TaskCompact TaskTitle="To Do" TaskImportance="Important"></TaskCompact>
-            </Box>
-            <Box
-            classname = "inProgressTasks"
-            sx={{
-                backgroundColor: "secondary.light"
-            }}>
-                <h3>In Progress</h3>
-                <TaskCompact TaskTitle="In Progress" TaskImportance="Important"></TaskCompact>
-            </Box>
-            <Box
-            classname = "completedTasks"
-            sx={{
-                backgroundColor: "secondary.light",
-            }}>
-                <h3>Completed</h3>
-                <TaskCompact TaskTitle="Completed" TaskImportance="Important"></TaskCompact>
-            </Box>  
-        </Box>
-        
-
-    </Box>
-    
-
-</Container>
-
-)
+    );
 
 };
-
 export default Project;
