@@ -10,6 +10,34 @@ To run this on your device, you will require to have:
 - Node: Refer to the official website: https://nodejs.org/
 - MongoDB: Download the server program for Mongodb: https://www.mongodb.com/try/download/community. Download the Monodb client: https://www.mongodb.com/try/download/compass
 
+
+## Configure the environment
+
+### Install Nodejs
+
+Refer to the official website: https://nodejs.org/
+
+### Download Mongodb
+
+Download the server program for Mongodb: https://www.mongodb.com/try/download/community
+
+Download the Monodb client: https://www.mongodb.com/try/download/compass
+
+### Start Mongodb
+
+Go to the directory of the downloaded Mongodb and enter the bin subdirectory, then execute the following command:
+```sh
+./mongod --dbpath ./db
+```
+
+the "./db" is your database file "./db" is the path to save your database file, if it doesn't exist, you need to create it.
+
+### Initialize the project
+
+Download the source code of khakikoalas_backend and execute the following command to initialize the environment:
+```sh
+npm install
+```
 ## Starting the application
 To install all the dependencies, navigate to the project directory and use
 ```sh
@@ -18,11 +46,15 @@ npm install
 
 Before running the front-end application, the backend needs to be started, to do so, change directory to backend and use:
 ```sh
+cd backend
+npm install
 npm start
 ```
 
 To run the vite backed front-end, open a new terminal window, and change directory to Koallab and use:
 ```sh
+cd koallab
+npm install
 npm run dev
 ```
 
