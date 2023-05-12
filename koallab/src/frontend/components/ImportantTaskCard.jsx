@@ -16,7 +16,7 @@ export const ImportantTaskCard = ({ userId, groupID }) => {
     const getImportantTasks = async () => {
         await fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`)
             .then((res) => res.json())
-            .then((res) => findImportantTasks(res.tasks))
+            .then((res) => console.log(res))
     }
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")

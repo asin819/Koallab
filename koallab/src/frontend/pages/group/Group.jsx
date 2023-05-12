@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Group.css";
 import WrenchIcon from "@heroicons/react/24/solid/WrenchIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
@@ -8,12 +8,108 @@ import GroupInfoCard from "../../components/GroupInfoCard";
 
 
 const Group = () => {
-  const [openModal, setModal] = useState(false);
-//   const {isAdmin} = useContext(AuthContext)
-
-const isAdmin = true;
-
+var token = sessionStorage.getItem("AuthToken")
+var groupname = "Back-end Group"
+const [openModal, setModal] = useState(false);
+const [isAdmin, setIsAdmin] = useState(false)
 const [isEditing, setIsEditing] = useState(false)
+const [userId, setUserId] = useState([])
+
+useEffect(() => {
+  if (token === null) {
+      Logout()
+  }else {
+      getUserId()
+  }
+}, [])
+
+const checkAdmin = (groupId,userId) => {
+  
+  const options = {
+    mode: 'cors',
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+  }
+  fetch(`http://127.0.0.1:3000/getUserRoleInGroup?token=${token}&userid=${userId}&groupid=${groupId}`, options)
+  .then(async (res) => {
+  
+    let data = await res.json();
+    data = JSON.parse(data);
+    return { ...data, ok: res.ok }
+    })
+    .then((res) => {
+      if (res.ok) {
+        if(res.token == "administrator"){
+          setIsAdmin(true);
+        }
+        // setUserId(res.token)
+      } else {
+        // Convert this to toast
+        toast.error(res.ErrorMessage, ToastOptions)
+      }
+    })
+}
+
+const getUserId = () => {
+  const options = {
+    mode: 'cors',
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+  }
+  fetch(`http://127.0.0.1:3000/getUserid?token=${token}`, options)
+  .then(async (res) => {
+  
+    let data = await res.json();
+    data = JSON.parse(data);
+   
+    return { ...data, ok: res.ok }
+    })
+    .then((res) => {
+      if (res.ok) {
+        setUserId(res.token)
+        getGroupId(res.token)
+      } else {
+        // Convert this to toast
+        toast.error(res.ErrorMessage, ToastOptions)
+      }
+    })
+}
+
+const getGroupId = (userId) => {
+  const options = {
+    mode: 'cors',
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+  }
+  fetch(`http://127.0.0.1:3000/getGroupId?token=${token}&groupname=${groupname}`, options)
+  .then(async (res) => {
+  
+    let data = await res.json();
+    data = JSON.parse(data);
+    
+    return { ...data, ok: res.ok }
+    })
+    .then((res) => {
+      if (res.ok) {
+        checkAdmin(res.token,userId)
+      } else {
+        // Convert this to toast
+        toast.error(res.ErrorMessage, ToastOptions)
+      }
+    })
+}
 
 const handlePencilClick = () => {
     setIsEditing(!isEditing);

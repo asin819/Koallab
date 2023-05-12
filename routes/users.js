@@ -14,6 +14,16 @@ router.get('/getUserInfo',user.getUserInfo);
 router.get('/getUserid',user.getUserid);
 
 /**
+ * GET group id.
+ */ 
+router.get('/getGroupId',user.getGroupId);
+
+/**
+ * GET group id.
+ */ 
+router.get('/getUserRoleInGroup',user.getUserRoleInGroup);
+
+/**
  * validate user email and password
  */
 router.post('/login', user.login);
