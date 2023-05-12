@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import KollabLogo from "../../assets/KoallabLogoDark.png"
 import { red } from "@mui/material/colors";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'; 
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -20,7 +22,60 @@ export default function SignIn() {
     });
   };
 
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  
+  const login = (url) => {
+
+    // Logic for Auth goes here. If auth use navigate line below. Also the code block commented below is from the internet, 
+    // can be used if needed.
+
+
+    navigate('/')
+
+    // const options = {
+    //   mode: 'cors',
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json",
+    //     "Origin": "http://localhost:3000"
+    //   },
+    //   body: JSON.stringify({ 
+    //     email: email, 
+    //     password: password }),
+    // }
+    // fetch(url, options)
+    // .then(async (res) => {
+    
+    //   let data = await res.json();
+    //   data = JSON.parse(data);
+    //   return { ...data, ok: res.ok }
+    //   })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       sessionStorage.setItem("AuthToken", res.token )
+    //       navigate("/")
+    //     } else {
+    //       // Convert this to toast
+    //       toast.error(res.ErrorMessage, ToastOptions)
+    //     }
+    //   })
+  }
+
   return (
+    <div className="Login_container" style={{
+      diplay: 'flex',
+      width: '100vw',
+      height: '100vh',
+      marginTop: '50px',
+      justifyContent: 'center',
+      alignContent: 'center',
+    }}>
+
+    
 <Container component="main" maxWidth="sm">
       <Box
         sx={{
@@ -45,6 +100,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -55,6 +111,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -68,6 +125,7 @@ export default function SignIn() {
                 backgroundColor: '#293038',
                 "&:hover": { backgroundColor: 'a7aeb6'},
             }}
+            onClick={() => login("http://127.0.0.1:3000/login")}
           >
             Sign In
           </Button>
@@ -86,6 +144,6 @@ export default function SignIn() {
         </Box>
       </Box>
     </Container>
-    
+    </div>
   );
 }

@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from "react";
-export const ImportantTaskCard = ({ projectID, groupID }) => {
+export const ImportantTaskCard = ({ userId, groupID }) => {
+
+    var token = sessionStorage.getItem("AuthToken")
+
     const [importantTasks, setImportantTasks] = useState([]);
 
     useEffect(() => {
-        // Retrieve the list of important tasks from the database using an API call or database query
-        // For example, you can use the SQL query I provided earlier and pass in the appropriate projectID and groupID
-        const query = `SELECT tasktitle, taskdescription, duedate, projectid, groupid
-                   FROM tasks
-                   WHERE importance = 'Important' AND projectid = '${projectID}' AND groupid = '${groupID}';`;
+        if (token === null) {
+            Logout()
+        }else {
+            getImportantTasks()
+        }          
+    }, [userId, groupID]);
 
-        fetch("/api/getImportantTasks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query }),
-        })
+    const getImportantTasks = async () => {
+        await fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`)
             .then((res) => res.json())
-            .then((data) => {
-                setImportantTasks(data);
-            })
-            .catch((err) => console.error(err));
-    }, [projectID, groupID]);
+            .then((res) => findImportantTasks(res))
+    }
+    const Logout = () => {
+        sessionStorage.removeItem("AuthToken")
+    }
+    const findImportantTasks = (allTasks) => {
+        console.log(allTasks.tasks);
+        var arr = [];
+        Object.keys(allTasks.tasks).forEach(function(key) {
+            arr.push(allTasks.tasks[key]);
+        });
+        var important = [];
+        arr.forEach((task,index) => {
+            if(task.importance === "Important"){
+                important.push(task);
+                console.log("!23")
+            }
+        });
+    } 
+    
+           
 
     return (
         <div className="ImportantTaskCard_container">

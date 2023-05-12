@@ -1,37 +1,57 @@
 import React from "react";
 import './UserProfile.css';
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import UserIcon from '@heroicons/react/24/solid/UserIcon';
-import { Button } from "@mui/material";
-import UserInfoCard from "../../components/userInfoCard";
-import IdentityCard from "../../components/IdentityCard";
+import { UserProfileCard } from "../../components/UserProfileCard";
 
 const UserProfile = () => {
-return(
-<Container>
 
-    <IdentityCard/>
+    return (
+     <div>
+        <UserProfileCard UserName={'Testing'} UserEmail={'asb'}/>
+     </div>   
+    )
 
-    <UserInfoCard/>
+// return(
 
-    <Box
-        sx={{
-          borderRadius: 2,
-          padding: 2,
-          marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          
-        }}
-    >
-        <Button variant="outlined" color="error">
-            Delete User
-        </Button>
-    </Box>
-    
-</Container>
-)
+// <Box
+//       component="main"
+//       sx={{
+//         flexGrow: 1,
+//         py: 8
+//       }}
+//     >
+//       <Container maxWidth="lg">
+//         <Stack spacing={3}>
+//           <div>
+//             <Typography variant="h4">
+//               Account
+//             </Typography>
+//           </div>
+//           <div>
+//             <Grid
+//               container
+//               spacing={3}
+//             >
+//               <Grid
+//                 xs={12}
+//                 md={6}
+//                 lg={4}
+//               >
+//                 <UserProfileBasic />
+//               </Grid>
+//               <Grid
+//                 xs={12}
+//                 md={6}
+//                 lg={8}
+//               >
+//                 <UserProfileDetails />
+//               </Grid>
+//             </Grid>
+//           </div>
+//         </Stack>
+//       </Container>
+//     </Box>
+
+// )
 
 };
 
