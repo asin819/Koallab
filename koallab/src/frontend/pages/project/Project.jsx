@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Button} from "@mui/material";
 
 import './Project.css';
 import WrenchIcon from "@heroicons/react/24/solid/WrenchIcon.js";
@@ -10,15 +11,24 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon.js";
 
 export const Project = () => {
 
-    // TODO for backend, Project %, ProjectName, UserList
-    const Progress = 80;
-    const ProjectName = '750 Group Project';
+    // TODO use backend to get ProjectInfo and UserList
     const UserList = [
         'John', 'Bella', 'Sky'
     ];
 
+    const projectInfo = {
+        ProjectName: "750 Group Project",
+        ProjectID: "123",
+        CreatorID: "456",
+        CreationTime: '3 April 2023',
+        ProjectStatus: 'Active',
+        Progress: 40
+    }
 
-    const [openModal, setModal] = useState(false);
+    const [openInfoModal, setInfoModal] = useState(false);
+    const [openResourcesModal, setResourcesModal] = useState(false);
+    
+
 
     const isAdmin = true;
 
@@ -29,7 +39,7 @@ export const Project = () => {
     };
 
     const openProjectResources = () => {
-
+        setResourcesModal(true)
     }
 
     const addUserToProject = () => {
@@ -38,19 +48,31 @@ export const Project = () => {
 
     return(
         <div className="project_container">
-            {openModal &&
+            {openInfoModal &&
                 <ProjectInfoCard
-                    ProjectId={'123'}
-                    ProjectName={'Khaki-Koalas'}
-                    CreatorID={'456'}
-                    CreationTime={'Something'}
-                    ProjectStatus={'Active'}
-                    ModalStateFunction={setModal}
+                    ProjectId={projectInfo.ProjectID}
+                    ProjectName={projectInfo.ProjectName}
+                    CreatorID={projectInfo.CreatorID}
+                    CreationTime={projectInfo.CreationTime}
+                    ProjectStatus={projectInfo.ProjectStatus}
+                    ModalStateFunction={setInfoModal}
                 />}
+            {openResourcesModal &&
+            <div className="Resources_modal">
+            <div className="Resources_container">
+                <h2 style={{color: '#fefefe'}}>Resources</h2>
+                    <Button onClick={() => setResourcesModal(false)}>Close</Button>
+
+            </div>
+
+        </div>
+
+            }
+            
             <div className="top_section_project">
-                <h1 className="project_title">{ProjectName}</h1>
+                <h1 className="project_title">{projectInfo.ProjectName}</h1>
                 {isAdmin &&
-                    <div className="wrenchIcon" onClick={()=>setModal(true)}>
+                    <div className="wrenchIcon" onClick={()=>setInfoModal(true)}>
                         <WrenchIcon height={'24px'} width={'24px'}/>
                     </div>
                 }
@@ -60,13 +82,13 @@ export const Project = () => {
             </div>
             <div className="project_progress">
                 <div className="project_progress_fill" style={{
-                    width:`${Progress}%`
+                    width:`${projectInfo.Progress}%`
 
                 }}>
                 <p style={{
-                    marginLeft: `${Progress/2}%`,
+                    marginLeft: `${projectInfo.Progress/2}%`,
                     marginTop: '20px'
-                }}>{Progress}% Complete</p>
+                }}>{projectInfo.Progress}% Complete</p>
                 </div>
             </div>
             <hr />

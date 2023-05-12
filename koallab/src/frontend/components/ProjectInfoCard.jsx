@@ -15,8 +15,8 @@ const ProjectInfoCard = (
 
 
     return (
-        <div className="GroupInfoCard_modal">
-            <div className="GroupInfoCard_container">
+        <div className="ProjectInfoCard_modal">
+            <div className="ProjectInfoCard_container">
                 <div>
                     <h2>{ProjectName}</h2>
                     <Button>Disband</Button>

@@ -136,3 +136,24 @@
     border-radius: 10px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
+
+.Resources_modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Resources_container{
+    width: 800px;
+    height: 500px;
+    background: #1c2536;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
