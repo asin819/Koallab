@@ -9,6 +9,21 @@ let user = require('../business/user');
 router.get('/getUserInfo',user.getUserInfo);
 
 /**
+ * GET user id.
+ */ 
+router.get('/getUserid',user.getUserid);
+
+/**
+ * GET group id.
+ */ 
+router.get('/getGroupId',user.getGroupId);
+
+/**
+ * GET group id.
+ */ 
+router.get('/getUserRoleInGroup',user.getUserRoleInGroup);
+
+/**
  * validate user email and password
  */
 router.post('/login', user.login);

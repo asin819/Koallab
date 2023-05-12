@@ -3,6 +3,7 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let cors = require('cors');
 
 let base = require('./bin/base');
 
@@ -10,7 +11,12 @@ require('./bin/initdb');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
-let taskRouter_ares = require('./routes/task_ares');
+
+let tasksRouter = require('./routes/tasks');
+let logsRouter = require('./routes/logs');
+let groupsRouter = require('./routes/groups');
+let projectsRouter = require('./routes/projects');
+
 
 let app = express();
 
@@ -19,6 +25,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,PUT,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Origin,Accept");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -30,12 +42,19 @@ app.use(base.checkReq);
 // khakikoalas's business handle here
 app.use('/', indexRouter);
 app.use('/', usersRouter);
-app.use('/', taskRouter_ares);
+
+app.use('/', tasksRouter);
+app.use('/', logsRouter);
+app.use('/', groupsRouter);
+app.use('/', projectsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   // next(createError(404));
-  res.end(base.mkBizMsg("fail", "The API did not exist:"+ req.originalUrl));
+
+  res.end(base.mkBizMsg("fail", "The API did not exist:"+req.originalUrl));
+
 });
 
 // error handler
@@ -50,3 +69,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+

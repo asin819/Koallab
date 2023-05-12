@@ -1,0 +1,22 @@
+.TeamCard {
+    /* border: 1px solid #ccc; */
+    border-radius: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    width: 120px;
+    padding: 15px;
+    /* margin: 10px; */
+    text-align: center;
+    background-color: #FAF9F6;
+  }
+
+.TeamImage {
+    height: 100px;
+}
+
+.TeamCard p {
+    font-weight: 700;
+}
+
+.TeamTitle {
+    height: 35px;
+}

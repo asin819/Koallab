@@ -1,0 +1,53 @@
+.UserProfileCard_container{
+    display: flex;
+    position: fixed;
+    margin-left: 5vw;
+    margin-top: 20vh;
+    width: 75vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.UserProfileCard_details{
+    max-width: 300px;
+    width: 30vw;
+    background-color: #fefefe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.UserProfileCard_titleDiv{
+    position: relative;
+}
+
+.UserProfileCard_title{
+    text-align: center;
+    justify-self: center;
+    flex-grow: 1;
+}
+
+.UserProfileCard_SaveButton{
+    position: absolute;
+    top: -35px;
+    left: 120px;
+    
+}
+
+.UserProfileCard_EditButton{
+    position: absolute;
+    top: 5px;
+    left: 160px;
+}
+
+.UserProfileCard_editingDivs{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
