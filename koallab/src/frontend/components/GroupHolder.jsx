@@ -12,19 +12,19 @@ export const GroupHolder = ({UserName, ProjectData, editingState}) => {
             </div>
             
             <div className="GroupHolder_projects">
-                {/* {
+                {
                 Object.entries({ProjectData}).map((item) => (
                     <GroupProjectCard 
                         ProjectName={item.Name} 
                         Progress={item.progress}/>
                 ))
-                } */}
+                }
 
+                {/* <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
                 <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
                 <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
                 <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
-                <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
-                <GroupProjectCard ProjectName={"Hello"} Progress="50"/>
+                <GroupProjectCard ProjectName={"Hello"} Progress="50"/> */}
 
             </div>
         </div>

@@ -11,6 +11,7 @@ import { SvgIcon } from '@mui/material';
 import KollabLogo from "../assets/KoallabLogoLight.png"
 
 const Sidebar = ({children}) => {
+  
     const[isOpen ,setIsOpen] = useState(false);
     const toggle = () => setIsOpen (!isOpen);
     const menuItemTop=[
