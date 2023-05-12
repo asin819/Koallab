@@ -7,6 +7,7 @@ import Project from './frontend/pages/project/Project.jsx'
 import UserProfile from './frontend/pages/userProfile/UserProfile.jsx'
 import Sidebar from "./frontend/components/Sidebar.jsx";
 import './App.css'
+import SignUp from "./frontend/pages/signup/SignUp.jsx";
 
 const App = () => {
   return(
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/group" element={<Group/>}/>
       <Route path="/project" element={<Project/>}/>
       <Route path="/userProfile" element={<UserProfile/>}/>
+      <Route path="/signup" element={<SignUp/>}/>
     </Routes>
     </Sidebar>
     </BrowserRouter>
