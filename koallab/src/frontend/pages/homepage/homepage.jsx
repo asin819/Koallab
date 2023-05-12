@@ -28,16 +28,7 @@ const Homepage = () => {
     }
 
     const [userId, setUserId] = useState([])
-
-    // const getUserId = async () => {
-    //     await fetch(`http://127.0.0.1:3000/getUserid?token=${token}`)
-    //         .then((res) => {
-    //             let data = res.json();
-    //             // data = JSON.parse(data);
-    //             console.log(data)
-    //         })
-    // }
-
+    const [allTasks, setallTasks] = useState([])
     const getUserId = () => {
         const options = {
           mode: 'cors',
@@ -59,12 +50,63 @@ const Homepage = () => {
           .then((res) => {
             if (res.ok) {
               setUserId(res.token)
+              getImportantTasks(res.token)
             } else {
               // Convert this to toast
               toast.error(res.ErrorMessage, ToastOptions)
             }
           })
       }
+      const getImportantTasks =  (userId) => {
+        const options = {
+            mode: 'cors',
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Origin": "http://localhost:3000"
+            },
+          }
+        fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`,options)
+           .then(async (res) => await res.json())
+           .then((res) => {
+            let tasks = res.tasks
+            console.log(type(res.tasks))
+               let arr = [];
+               Object.keys(tasks).forEach(function(key) {
+                   arr.push(tasks[key]);
+               });
+               let important = [];
+               arr.forEach((task,index) => {
+                   if(task.importance === "Important"){
+                       important.push(task);
+                   }
+               });
+               setallTasks(important)
+               console.log(allTasks)
+           })
+        }
+    //   const getImportantTasks =  (userId) => {
+    //     fetch(`http://127.0.0.1:3000/tasks/user?token=${token}&userId=${userId}`)
+    //        .then(async (res) => await res.json())
+    //        .then((res) => {
+    //         let tasks = res.tasks
+    //         console.log(type(res.tasks))
+    //            let arr = [];
+    //            Object.keys(tasks).forEach(function(key) {
+    //                arr.push(tasks[key]);
+    //            });
+    //            let important = [];
+    //            arr.forEach((task,index) => {
+    //                if(task.importance === "Important"){
+    //                    important.push(task);
+    //                }
+    //            });
+    //            setallTasks(important)
+    //            console.log(allTasks)
+    //        })
+    //     }
+      
 
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")
@@ -80,7 +122,7 @@ const Homepage = () => {
                 <strong>Important Tasks</strong>
             </p>
             <div className="important-tasks-container">
-                <ImportantTaskCard userId={userId} groupID="yourGroupID" />
+                <ImportantTaskCard allTasks={allTasks} groupID="yourGroupID" />
             </div>
             <p className="other_tasks">
                 <strong>Other Tasks</strong>
