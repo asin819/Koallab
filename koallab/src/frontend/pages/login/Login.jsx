@@ -30,8 +30,7 @@ export default function SignIn() {
   
   const login = (url) => {
 
-    // Logic for Auth goes here. If auth use navigate line below. Also the code block commented below is from the internet, 
-    // can be used if needed.
+   
     const options = {
       mode: 'cors',
       method: "POST",
@@ -57,7 +56,7 @@ export default function SignIn() {
           navigate("/")
         } else {
           // Convert this to toast
-          toast.error(res.ErrorMessage, ToastOptions)
+         
         }
       })
   }

@@ -72,12 +72,12 @@ const Homepage = () => {
         
             let data = await res.json();
             data = JSON.parse(data);
-            console.log(data)
+            
             return { ...data, ok: res.ok }
         })
            .then((res) => {
             let tasks = res.data
-            console.log(tasks)
+          
                let arr = [];
                Object.keys(tasks).forEach(function(key) {
                    arr.push(tasks[key]);
