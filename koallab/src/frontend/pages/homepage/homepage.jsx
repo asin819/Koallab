@@ -53,7 +53,7 @@ const Homepage = () => {
               getImportantTasks(res.token)
             } else {
               // Convert this to toast
-              toast.error(res.ErrorMessage, ToastOptions)
+       
             }
           })
       }
