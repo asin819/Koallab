@@ -34,6 +34,10 @@ const Sidebar = ({ children }) => {
     return <main>{children}</main>;
   }
 
+  if (location.pathname === "/signup"){
+    return <main>{children}</main>;
+  }
+
   return (
     <div className="container">
       <div style={{ width: "200px" }} className="sidebar">

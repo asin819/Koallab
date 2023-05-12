@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import Button from "@mui/material/Button"; 
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -10,10 +10,8 @@ import Container from "@mui/material/Container";
 import KollabLogo from "../../assets/KoallabLogoDark.png"
 import { red } from "@mui/material/colors";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
-import { NavLink, useLocation } from "react-router-dom";
 
-export default function SignIn() {
+export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -25,45 +23,11 @@ export default function SignIn() {
 
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  
-  const login = (url) => {
-
-    // Logic for Auth goes here. If auth use navigate line below. Also the code block commented below is from the internet, 
-    // can be used if needed.
-    const options = {
-      mode: 'cors',
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
-      },
-      body: JSON.stringify({ 
-        email: email, 
-        password: password }),
-    }
-    fetch(url, options)
-    .then(async (res) => {
-    
-      let data = await res.json();
-      data = JSON.parse(data);
-      return { ...data, ok: res.ok }
-      })
-      .then((res) => {
-        if (res.ok) {
-          sessionStorage.setItem("AuthToken", res.token )
-          navigate("/")
-        } else {
-          // Convert this to toast
-          toast.error(res.ErrorMessage, ToastOptions)
-        }
-      })
+  const SignupFunction= () => {
+    navigate('/')
   }
-
   return (
-    <div className="Login_container" style={{
+    <div className="Signup_container" style={{
       diplay: 'flex',
       width: '100vw',
       height: '100vh',
@@ -71,8 +35,6 @@ export default function SignIn() {
       justifyContent: 'center',
       alignContent: 'center',
     }}>
-
-    
 <Container component="main" maxWidth="sm">
       <Box
         sx={{
@@ -97,7 +59,16 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
           />
           <TextField
             margin="normal"
@@ -108,12 +79,23 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Button 
+            variant="contained"
+            component="label"
+            sx={{ mt: 3, mb: 2, 
+              backgroundColor: '#293038',
+              marginLeft: '175px',
+              "&:hover": { backgroundColor: 'a7aeb6'},
+            }}
+          >
+              Upload Photo
+              <input 
+                hidden 
+                accept="image/*" 
+                multiple type="file" 
+              />
+          </Button>
           <Button
             type="submit"
             fullWidth
@@ -122,27 +104,10 @@ export default function SignIn() {
                 backgroundColor: '#293038',
                 "&:hover": { backgroundColor: 'a7aeb6'},
             }}
-            onClick={() => login("http://127.0.0.1:3000/login")}
+            onClick={() => SignupFunction()}
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                {"Forgot password?"}
-              </Link>
-            </Grid> */}
-            <Grid item>
-              {/* <Link to='signup' variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link> */}
-              <NavLink to='/signup'>
-                <Link variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-              </NavLink>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
