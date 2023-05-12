@@ -28,7 +28,6 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   
   const login = (url) => {
-    console.log(`login with: ${email} : ${password}`)
     const options = {
       mode: 'cors',
       method: "POST",
