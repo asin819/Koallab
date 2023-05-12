@@ -11,9 +11,7 @@ import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import KollabLogo from "../assets/KoallabLogoLight.png";
 
 const Sidebar = ({ children }) => {
-  // TODO Eaton fill these up
-  // const groups = ["abc", "def", "xyz"];
-  //  const projects = ["koallab", "p4p", "701"];
+
   var token = sessionStorage.getItem("AuthToken")
 
   const [projectResponse, setProjectResponse] = useState([]);
@@ -72,7 +70,7 @@ const Sidebar = ({ children }) => {
           setUserId(res.token)
         } else {
           // Convert this to toast
-          toast.error(res.ErrorMessage, ToastOptions)
+        
         }
       })
   }
@@ -104,7 +102,7 @@ const Sidebar = ({ children }) => {
           }
         } else {
           // Convert this to toast
-          toast.error(res.ErrorMessage, ToastOptions)
+         
         }
       })
   }

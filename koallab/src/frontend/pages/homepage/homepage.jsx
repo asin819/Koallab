@@ -52,8 +52,7 @@ const Homepage = () => {
               setUserId(res.token)
               getImportantTasks(res.token)
             } else {
-              // Convert this to toast
-       
+            
             }
           })
       }
@@ -107,7 +106,7 @@ const Homepage = () => {
                 <strong>Important Tasks</strong>
             </p>
             <div className="important-tasks-container">
-                <ImportantTaskCard allTasks={allTasks} groupID="yourGroupID" />
+                <ImportantTaskCard/>
             </div>
             <p className="other_tasks">
                 <strong>Other Tasks</strong>
