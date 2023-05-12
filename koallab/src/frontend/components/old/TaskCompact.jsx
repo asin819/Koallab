@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/TaskCompact.css";
 
-const TaskCompact = ({
+const TaskCompact = () =>({
   TaskTitle,
   TaskImportance,
 }) => {
@@ -11,7 +11,7 @@ const TaskCompact = ({
   } else if ((TaskImportance = "Important")) {
     textColor = "important";
   }
-  console.log({TaskImportance});
+
   return (
     <div className="TaskCompact">
       <h2>{TaskTitle}</h2>
