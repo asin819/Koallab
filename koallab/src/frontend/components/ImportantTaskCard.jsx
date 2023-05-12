@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 export const ImportantTaskCard = ({ allTasks, groupID }) => {
 
     var token = sessionStorage.getItem("AuthToken")
-    const [userId, setUserId] = useState([])
-    const [taskResponse, settaskResponse] = useState([]);
+    const [userId, setUserId] = useState(null)
+
+
+    const [taskResponse, setTaskResponse] = useState([]);
     const [tasks, settasks] = useState([]);
+
     useEffect(() => {
         getUserId();
     }, []);
 
     useEffect(() => {
         if (userId) {
-            getImportantTasks(`http://127.0.0.1:3000/getTaskListByUserid?token=${token}&userid=${userId}`);
-
+            getDataFrom(`/getTaskListByUserid?token=${token}&userid=${userId}`);
         }
     }, [userId]);
 
     useEffect(() => {
-        // settasks(taskResponse.map(item => item.taskid ));
+        console.log(taskResponse);
+        settasks(taskResponse)
     }, [taskResponse]);
 
     const getUserId = () => {
@@ -46,7 +49,8 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
                 }
             })
     }
-    const getImportantTasks = (url) => {
+
+    const getDataFrom = (url) => {
         const options = {
             mode: 'cors',
             method: "GET",
@@ -56,7 +60,7 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
                 "Origin": "http://localhost:3000"
             },
         }
-        fetch(url, options)
+        fetch(`http://127.0.0.1:3000${url}`, options)
             .then(async (res) => {
 
                 let data = await res.json();
@@ -66,53 +70,50 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
             })
             .then((res) => {
                 if (res.ok) {
-                    console.log(res.data)
-                    settaskResponse(res.data)
+                    setTaskResponse(res.data);
+                } else {
+                    // Convert this to toast
 
                 }
-
-                //    let arr = [];
-                //    Object.keys(tasks).forEach(function(key) {
-                //        arr.push(tasks[key]);
-                //    });
-                //    let important = [];
-                //    arr.forEach((task,index) => {
-                //        if(task.importance === "Important"){
-                //            important.push(task);
-                //        }
-                //    });
             })
     }
 
 
     return (
         <div className="ImportantTaskCard_container">
-            <div className="ImportantTaskCard_title">Important Tasks</div>
-            {tasks.map((importantTask) => (
-                <div className="ImportantTaskCard_task" key={importantTask.taskid}>
-                    <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
-                    <div className="ImportantTaskCard_taskDescription">
-                        {importantTask.taskDescription}
-                    </div>
-                    <div className="ImportantTaskCard_taskDueDate">
-                        Due Date: {importantTask.estimatedTime}
-                    </div>
+            {tasks.map((task) => (
+                <div style={cardStyle}>
+                    <div style={titleStyle}>{task.tasktitle}</div>
+                    <div style={descriptionStyle}>{task.taskdescription}</div>
+                    <div style={dueDateStyle}>Due Date: {task.estimatedtime}</div>
                 </div>
+
             ))}
-            {/* {
-            Object.entries({importantTasks}).map((importantTask) => (
-            <div className="ImportantTaskCard_task" key={importantTask.taskId}>
-            <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
-            <div className="ImportantTaskCard_taskDescription">
-                {importantTask.taskDescription}
-            </div>
-            <div className="ImportantTaskCard_taskDueDate">
-                Due Date: {importantTask.estimatedTime}
-            </div>
-        </div>
-            ))
-            } */}
         </div>
     );
 
+};
+
+const cardStyle = {
+    margin: '20px 0',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '10px',
+    backgroundColor: '#f9f9f9',
+};
+
+const titleStyle = {
+    fontSize: '20px',
+    fontWeight: 'bold',
+};
+
+const descriptionStyle = {
+    fontSize: '16px',
+    color: '#666',
+};
+
+const dueDateStyle = {
+    fontSize: '14px',
+    color: '#999',
+    marginTop: '10px',
 };
