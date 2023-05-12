@@ -56,6 +56,7 @@ const getTasksFromProject = async (projectId) => {
 }
 
 const getTasksFromUser = async (userId) => {
+    console.log(userId)
     return await Task.find({ executorid: userId });
 }
 

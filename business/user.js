@@ -18,9 +18,7 @@ this.login = async function (req, res, next) {
                             "authorizationvalidityexpirationdate":expireDate
                         }}).then((docs) => {
                             if (docs.modifiedCount > 0) {
-                                res.status(200).json({
-                                    token: stoken,
-                                });
+                                res.end(base.mkBizMsg("success", "login done!",stoken));
                             }else{
                                 throw new Error("Generate token failed");
                             }
@@ -98,9 +96,7 @@ this.getUserid = async function (req, res, next) {
         let userToken = req.query.token;
         await global.db.modUser.find({"authorizationtoken":userToken}).then(async (docs) => {
             let userId = docs[0].userid;
-            res.status(200).json({
-                userid: userId,
-            });
+            res.end(base.mkBizMsg("success", "user id send done!",userId));
         }
         )
     } catch (e) {

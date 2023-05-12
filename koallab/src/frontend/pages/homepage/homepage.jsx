@@ -29,15 +29,45 @@ const Homepage = () => {
 
     const [userId, setUserId] = useState([])
 
-    const getUserId = async () => {
-    await fetch(`http://127.0.0.1:3000/getUserid?token=${token}`)
-        .then((res) => res.json())
-        .then((res) => setUserId(res.userid))
-    }
+    // const getUserId = async () => {
+    //     await fetch(`http://127.0.0.1:3000/getUserid?token=${token}`)
+    //         .then((res) => {
+    //             let data = res.json();
+    //             // data = JSON.parse(data);
+    //             console.log(data)
+    //         })
+    // }
+
+    const getUserId = () => {
+        const options = {
+          mode: 'cors',
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Origin": "http://localhost:3000"
+          },
+        }
+        fetch(`http://127.0.0.1:3000/getUserid?token=${token}`, options)
+        .then(async (res) => {
+        
+          let data = await res.json();
+          data = JSON.parse(data);
+         
+          return { ...data, ok: res.ok }
+          })
+          .then((res) => {
+            if (res.ok) {
+              setUserId(res.token)
+            } else {
+              // Convert this to toast
+              toast.error(res.ErrorMessage, ToastOptions)
+            }
+          })
+      }
 
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")
-        navigate("/")
     }
 
     const koalaClass = hour >= 20 || hour < 6 ? "sleepy" : "awake"; // Change Koala image based on time

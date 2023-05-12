@@ -43,11 +43,12 @@ export default function SignIn() {
     }
     fetch(url, options)
     .then(async (res) => {
-      const data = await res.json()
+    
+      let data = await res.json();
+      data = JSON.parse(data);
       return { ...data, ok: res.ok }
       })
       .then((res) => {
-        console.log(res)
         if (res.ok) {
           sessionStorage.setItem("AuthToken", res.token )
           navigate("/home")
