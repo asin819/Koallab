@@ -2,20 +2,14 @@ import React, { useState, useEffect } from "react";
 export const ImportantTaskCard = ({ allTasks, groupID }) => {
 
   
-    const [importantTasks, setImportantTasks] = useState([]);
+    const [importantTasks, setImportantTasks] = useState([...allTasks]);
 
     useEffect(() => {
-        const setTasks = (allTasks) => {
             console.log(allTasks)
             setImportantTasks(...allTasks)
-        }
-        setTasks(allTasks);
+            
     }, [allTasks]);
-    if(importantTasks !== null  && importantTasks !== undefined && importantTasks.length > 0){
-    
-    }
-
-    if(importantTasks !== null  && importantTasks !== undefined && importantTasks.length > 0){
+    if(importantTasks){
         return (
             <div className="ImportantTaskCard_container">
                 <div className="ImportantTaskCard_title">Important Tasks</div>

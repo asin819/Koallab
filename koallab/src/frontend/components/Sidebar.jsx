@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import ChartBarIcon from "@heroicons/react/24/outline/ChartBarIcon";
@@ -12,8 +12,102 @@ import KollabLogo from "../assets/KoallabLogoLight.png";
 
 const Sidebar = ({ children }) => {
   // TODO Eaton fill these up
-  const groups = ["abc", "def", "xyz"];
-  const projects = ["koallab", "p4p", "701"];
+  // const groups = ["abc", "def", "xyz"];
+  //  const projects = ["koallab", "p4p", "701"];
+  var token = sessionStorage.getItem("AuthToken")
+
+  const [projectResponse, setProjectResponse] = useState([]);
+  const [groupResponse, setGroupResponse] = useState([]);
+
+  const [userId, setUserId] = useState([])
+
+  const [projects, setProjects] = useState([]);
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    getUserId();
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      getDataFrom(`/getMyParticipatedProjectList?userid=${userId}&token=${token}`);
+      getDataFrom(`/getMyCreatedGroupList?userid=${userId}&token=${token}`);
+    }
+  }, [userId]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     getDataFrom(`/getMyParticipatedGroupList?userid=${userId}&token=${token}`);
+  //   }
+  // }, [userId]);
+
+  useEffect(() => {
+    setProjects(projectResponse.map(item => item.projectname));
+  }, [projectResponse]);
+
+  useEffect(() => {
+    setGroups(groupResponse.map(item => item.groupname));
+  }, [groupResponse]);
+
+  const getUserId = () => {
+    const options = {
+      mode: 'cors',
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+    }
+    fetch(`http://127.0.0.1:3000/getUserid?token=${token}`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          setUserId(res.token)
+        } else {
+          // Convert this to toast
+          toast.error(res.ErrorMessage, ToastOptions)
+        }
+      })
+  }
+
+  const getDataFrom = (url) => {
+    const options = {
+      mode: 'cors',
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+    }
+    fetch(`http://127.0.0.1:3000${url}`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          if (url.includes("Group")) {
+            setGroupResponse(res.data);
+          } else if (url.includes("Project")) {
+            setProjectResponse(res.data);
+          }
+        } else {
+          // Convert this to toast
+          toast.error(res.ErrorMessage, ToastOptions)
+        }
+      })
+  }
 
   // TODO Logout function for eaton
   const logoutFunction = () => {
@@ -31,10 +125,6 @@ const Sidebar = ({ children }) => {
   const location = useLocation();
 
   if (location.pathname === "/login") {
-    return <main>{children}</main>;
-  }
-
-  if (location.pathname === "/signup"){
     return <main>{children}</main>;
   }
 
@@ -63,8 +153,8 @@ const Sidebar = ({ children }) => {
           <div style={{ display: "block" }} className="link_text">
             Projects
           </div>
-          <div className="icon" onClick={() => addProject()} style={{cursor: 'pointer'}}>
-            <PlusIcon width={"20px"} style={{marginLeft: '20px'}} />
+          <div className="icon" onClick={() => addProject()} style={{ cursor: 'pointer' }}>
+            <PlusIcon width={"20px"} style={{ marginLeft: '20px' }} />
           </div>
         </div>
 
@@ -90,8 +180,8 @@ const Sidebar = ({ children }) => {
           <div style={{ display: "block" }} className="link_text">
             Groups
           </div>
-          <div className="icon" onClick={() => addGroup()} style={{cursor: 'pointer'}}>
-            <PlusIcon width={"20px"} style={{marginLeft: '20px'}} />
+          <div className="icon" onClick={() => addGroup()} style={{ cursor: 'pointer' }}>
+            <PlusIcon width={"20px"} style={{ marginLeft: '20px' }} />
           </div>
         </div>
 
