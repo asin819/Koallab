@@ -35,7 +35,7 @@ app.use('/', taskRouter_ares);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   // next(createError(404));
-  res.end(base.mkBizMsg("fail", "The API did not exist"));
+  res.end(base.mkBizMsg("fail", "The API did not exist:"+ req.originalUrl));
 });
 
 // error handler
