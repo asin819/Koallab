@@ -11,10 +11,12 @@ require('./bin/initdb');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+
 let tasksRouter = require('./routes/tasks');
 let logsRouter = require('./routes/logs');
 let groupsRouter = require('./routes/groups');
 let projectsRouter = require('./routes/projects');
+
 
 let app = express();
 
@@ -40,15 +42,19 @@ app.use(base.checkReq);
 // khakikoalas's business handle here
 app.use('/', indexRouter);
 app.use('/', usersRouter);
+
 app.use('/', tasksRouter);
 app.use('/', logsRouter);
 app.use('/', groupsRouter);
 app.use('/', projectsRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   // next(createError(404));
+
   res.end(base.mkBizMsg("fail", "The API did not exist:"+req.originalUrl));
+
 });
 
 // error handler

@@ -69,12 +69,12 @@ if (!global.db.modUser) {
 
     global.db.modProject_User_Relationship = db.model("project_user_relationship",schProject_User_Relationship);
 
-    //Project_Resource_Table: resourceid, projectid, resourcetype (video, audio, image, file), path (relative path)
+    //Project_Resource_Table: resourceid, projectid, resourcetype (video, audio, image, file), file (Base64)
     let schProject_Resource_Table = new mongoose.Schema({
         "resourceid":{type: String, default: ''},
         "projectid":{type: String, default: ''},
         "resourcetype":{type: String, default: ''},
-        "path":{type: String, default: ''}
+        "file":{type: String, default: ''}
     })
 
     global.db.modProject_Resource_Table = db.model("project_resource_table",schProject_Resource_Table);
