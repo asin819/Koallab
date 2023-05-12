@@ -232,6 +232,58 @@ this.getUserInfo = async function (req, res, next) {
     }
 };
 
+
+/**
+ * Save new user information into database
+ * email or username can't be same as existing
+ * email or username must provide one of them
+ * password can't be empty string
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+this.getGroupId = async function (req, res, next) {
+    try {
+        let groupname = req.query.groupname;
+        await global.db.modGroup.find({"groupname":groupname}).then(async (docs) => {
+            let groupid = docs[0].groupid;
+            res.end(base.mkBizMsg("success", "group id send done!",groupid));
+        }
+        )
+    } catch (e) {
+        console.log(e);
+        res.end(base.mkBizMsg("fail", e.message ? e.message : e));
+    }
+};
+
+/**
+ * Save new user information into database
+ * email or username can't be same as existing
+ * email or username must provide one of them
+ * password can't be empty string
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+this.getUserRoleInGroup = async function (req, res, next) {
+    try {
+        let groupid = req.query.groupid;
+        let userid = req.query.userid;
+        await global.db.modGroup_User_Relationship.find({"groupid":groupid, "userid":userid}).then(async (docs) => {
+            let role = docs[0].role;
+            res.end(base.mkBizMsg("success", "group id send done!",role));
+          
+        }
+        )
+    } catch (e) {
+        console.log(e);
+        res.end(base.mkBizMsg("fail", e.message ? e.message : e));
+    }
+};
+
+
+
+
 /**
  * get user list and detail information from group
  * @param {*} req 

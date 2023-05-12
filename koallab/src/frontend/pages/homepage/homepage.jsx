@@ -80,7 +80,7 @@ const Homepage = () => {
                 <strong>Important Tasks</strong>
             </p>
             <div className="important-tasks-container">
-                <ImportantTaskCard userId="userId" groupID="yourGroupID" />
+                <ImportantTaskCard userId={userId} groupID="yourGroupID" />
             </div>
             <p className="other_tasks">
                 <strong>Other Tasks</strong>

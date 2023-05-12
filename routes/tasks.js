@@ -119,13 +119,13 @@ router.put('/tasks/status', async (req, res) => {
  * 31. Query the detailed information of a specified task:
  * 
  * @param {*} req 
- * @param {*} req.query.taskId
+ * @param {*} req.body.taskId
  * 
  * @param {*} res => Task object 
  * 
  */
 router.get('/tasks', async (req, res) => {
-    const taskId = req.query.taskId;
+    const taskId = req.body.taskId;
 
     try {
         const task = await getTaskInfo(taskId);
@@ -146,13 +146,13 @@ router.get('/tasks', async (req, res) => {
  * 32. Query the task list of the specified project:
  * 
  * @param {*} req
- * @param {String} req.query.projectId
+ * @param {String} req.body.projectId
  * 
  * @param {*} res => Task object list
  * 
  */
 router.get('/tasks/project', async (req, res) => {
-    const projectId = req.query.projectId;
+    const projectId = req.body.projectId;
 
     try {
         const tasks = await getTasksFromProject(projectId);
@@ -173,13 +173,13 @@ router.get('/tasks/project', async (req, res) => {
  * 33. Query the list of tasks in which the specified person is involved:
  * 
  * @param {*} req
- * @param {String} req.query.userId
+ * @param {String} req.body.userId
  * 
  * @param {*} res => Task object list
  * 
  */
 router.get('/tasks/user', async (req, res) => {
-    const userId = req.query.userId;
+    const userId = req.body.userId;
 
     try {
         const tasks = await getTasksFromUser(userId);
