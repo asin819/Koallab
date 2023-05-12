@@ -29,15 +29,6 @@ const Homepage = () => {
 
     const [userId, setUserId] = useState([])
 
-    // const getUserId = async () => {
-    //     await fetch(`http://127.0.0.1:3000/getUserid?token=${token}`)
-    //         .then((res) => {
-    //             let data = res.json();
-    //             // data = JSON.parse(data);
-    //             console.log(data)
-    //         })
-    // }
-
     const getUserId = () => {
         const options = {
           mode: 'cors',
@@ -65,6 +56,7 @@ const Homepage = () => {
             }
           })
       }
+      
 
     const Logout = () => {
         sessionStorage.removeItem("AuthToken")

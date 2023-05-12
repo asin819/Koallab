@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 export const ImportantTaskCard = ({ userId, groupID }) => {
 
     var token = sessionStorage.getItem("AuthToken")
-
+    var important = [];
     const [importantTasks, setImportantTasks] = useState([]);
 
     useEffect(() => {
@@ -22,33 +22,33 @@ export const ImportantTaskCard = ({ userId, groupID }) => {
         sessionStorage.removeItem("AuthToken")
     }
     const findImportantTasks = (allTasks) => {
-        console.log(allTasks.tasks);
         var arr = [];
         Object.keys(allTasks.tasks).forEach(function(key) {
             arr.push(allTasks.tasks[key]);
         });
-        var important = [];
         arr.forEach((task,index) => {
             if(task.importance === "Important"){
                 important.push(task);
-                console.log("!23")
             }
         });
+        console.log(important)
+        setImportantTasks(important)
     } 
+   
     
            
 
     return (
         <div className="ImportantTaskCard_container">
             <div className="ImportantTaskCard_title">Important Tasks</div>
-            {importantTasks.map((task) => (
-                <div className="ImportantTaskCard_task" key={task.taskid}>
-                    <div className="ImportantTaskCard_taskTitle">{task.tasktitle}</div>
+            {importantTasks.map((importantTask) => (
+                <div className="ImportantTaskCard_task" key={importantTask.taskid}>
+                    <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
                     <div className="ImportantTaskCard_taskDescription">
-                        {task.taskdescription}
+                        {importantTask.taskDescription}
                     </div>
                     <div className="ImportantTaskCard_taskDueDate">
-                        Due Date: {task.duedate}
+                        Due Date: {importantTask.estimatedTime}
                     </div>
                 </div>
             ))}
