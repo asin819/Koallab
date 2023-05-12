@@ -10,6 +10,14 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon.js";
 
 export const Project = () => {
 
+    // TODO for backend, Project %, ProjectName, UserList
+    const Progress = 80;
+    const ProjectName = '750 Group Project';
+    const UserList = [
+        'John', 'Bella', 'Sky'
+    ];
+
+
     const [openModal, setModal] = useState(false);
 
     const isAdmin = true;
@@ -19,6 +27,14 @@ export const Project = () => {
     const handlePencilClick = () => {
         setIsEditing(!isEditing);
     };
+
+    const openProjectResources = () => {
+
+    }
+
+    const addUserToProject = () => {
+
+    }
 
     return(
         <div className="project_container">
@@ -32,18 +48,26 @@ export const Project = () => {
                     ModalStateFunction={setModal}
                 />}
             <div className="top_section_project">
-                <h1 className="project_title">Project Name</h1>
+                <h1 className="project_title">{ProjectName}</h1>
                 {isAdmin &&
                     <div className="wrenchIcon" onClick={()=>setModal(true)}>
                         <WrenchIcon height={'24px'} width={'24px'}/>
                     </div>
                 }
             </div>
-            <div className="project_info">
-                <p>Lorem Ipsum</p>
+            <div className="view_resources" onClick={() => openProjectResources()}>
+                <p>View Resources</p>
             </div>
-            <div className="view_resources">
-                <p>% Complete</p>
+            <div className="project_progress">
+                <div className="project_progress_fill" style={{
+                    width:`${Progress}%`
+
+                }}>
+                <p style={{
+                    marginLeft: `${Progress/2}%`,
+                    marginTop: '20px'
+                }}>{Progress}% Complete</p>
+                </div>
             </div>
             <hr />
             <div className="middle_section_project">
@@ -55,8 +79,14 @@ export const Project = () => {
                 }
             </div>
             <div className="project_member">
-                <ProjectMemberCard Username={"User 1"} editingState={isEditing}/>
-                <ProjectMemberCard Username={"User 2"} editingState={isEditing}/>
+                {UserList.map((user) => (
+                    <ProjectMemberCard Username={user} editingState={isEditing}/>
+                ))}
+                {isEditing &&
+                    <div className="AddUserToProjectBox" onClick={() => addUserToProject()}> 
+                        <PlusIcon width={'30px'} />
+                    </div>
+                }
             </div>
             <h2 className="tasks">
                 <strong>Tasks</strong>
@@ -67,9 +97,9 @@ export const Project = () => {
                         <h2 className="todo">
                             <strong>To-do</strong>
                         </h2>
-                        <button className="add_button" onClick={() => console.log('Add button clicked for To-do')}>
-                            <PlusIcon className="plus_icon" />
-                        </button>
+                        <div className="add_button" onClick={() => console.log('Add button clicked for To-do')}>
+                        <PlusIcon width={'20px'} />
+                        </div>
                     </div>
                     <div className="todo_container">
                             <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
@@ -81,9 +111,9 @@ export const Project = () => {
                         <h2 className="progress">
                             <strong>In Progress</strong>
                         </h2>
-                        <button className="add_button" onClick={() => console.log('Add button clicked for In Progress')}>
-                            <PlusIcon className="plus_icon" />
-                        </button>
+                        <div className="add_button" onClick={() => console.log('Add button clicked for In Progress')}>
+                            <PlusIcon width={'24px'} />
+                        </div>
                     </div>
                     <div className="progress_container">
                             <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>
@@ -95,9 +125,9 @@ export const Project = () => {
                         <h2 className="completed">
                         <strong>Completed</strong>
                     </h2>
-                    <button className="add_button" onClick={() => console.log('Add button clicked for Completed')}>
-                        <PlusIcon className="plus_icon" />
-                    </button>
+                    <div className="add_button" onClick={() => console.log('Add button clicked for Completed')}>
+                    <PlusIcon width={'24px'} />
+                    </div>
                 </div>
                 <div className="progress_container">
                         <ProjectTask projectID="yourProjectID" groupID="yourGroupID"/>

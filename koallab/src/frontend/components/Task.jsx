@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/Task.css";
-import informationIcon from "../assets/info.png";
+
 
 const Task = ({
   TaskTitle,
@@ -34,11 +34,11 @@ const Task = ({
 
       <div className="InfoButton">
         <button>
-          <img
+          {/* <img
             style={{ width: "30px", height: "30px" }}
             src={informationIcon}
             alt="View all information"
-          />
+          /> */}
         </button>
       </div>
     </div>
