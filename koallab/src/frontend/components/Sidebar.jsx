@@ -6,8 +6,8 @@ import ClipBoardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import UserSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
 import ArrowLeftOnRectangle from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
-import Bars3 from "@heroicons/react/24/outline/Bars3Icon";
-import { SvgIcon } from "@mui/material";
+import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+
 import KollabLogo from "../assets/KoallabLogoLight.png";
 
 const Sidebar = ({ children }) => {
@@ -19,6 +19,14 @@ const Sidebar = ({ children }) => {
   const logoutFunction = () => {
     console.log("Logged out");
   };
+
+  const addGroup = () => {
+    console.log('Added Group');
+  }
+
+  const addProject = () => {
+    console.log('Added new project')
+  }
 
   const location = useLocation();
 
@@ -51,6 +59,9 @@ const Sidebar = ({ children }) => {
           <div style={{ display: "block" }} className="link_text">
             Projects
           </div>
+          <div className="icon" onClick={() => addProject()} style={{cursor: 'pointer'}}>
+            <PlusIcon width={"20px"} style={{marginLeft: '20px'}} />
+          </div>
         </div>
 
         {/* Maps all projects under the user to a link */}
@@ -74,6 +85,9 @@ const Sidebar = ({ children }) => {
           </div>
           <div style={{ display: "block" }} className="link_text">
             Groups
+          </div>
+          <div className="icon" onClick={() => addGroup()} style={{cursor: 'pointer'}}>
+            <PlusIcon width={"20px"} style={{marginLeft: '20px'}} />
           </div>
         </div>
 
