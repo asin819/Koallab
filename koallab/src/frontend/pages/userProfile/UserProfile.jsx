@@ -1,11 +1,5 @@
 import React from "react";
 import './UserProfile.css';
-import UserIcon from '@heroicons/react/24/solid/UserIcon';
-import { Button } from "@mui/material";
-import UserInfoCard from "../../components/userInfoCard";
-import IdentityCard from "../../components/IdentityCard";
-import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-
 import { UserProfileCard } from "../../components/UserProfileCard";
 
 const UserProfile = () => {

@@ -154,6 +154,8 @@ const handlePencilClick = () => {
         }
       </div>
       <div className="group_user_cards">
+
+        
         <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
         <GroupHolder UserName={"User 1"} editingState = {isEditing}/>
         {
