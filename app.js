@@ -10,6 +10,7 @@ require('./bin/initdb');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+let taskRouter_ares = require('./routes/task_ares');
 
 let app = express();
 
@@ -29,6 +30,7 @@ app.use(base.checkReq);
 // khakikoalas's business handle here
 app.use('/', indexRouter);
 app.use('/', usersRouter);
+app.use('/', taskRouter_ares);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
