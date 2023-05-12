@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 export const ImportantTaskCard = ({ allTasks, groupID }) => {
 
     var token = sessionStorage.getItem("AuthToken")
+
     const [userId, setUserId] = useState([])
     const [taskResponse, settaskResponse] = useState([]);
     const [tasks, settasks] = useState([]);
+
     useEffect(() => {
         getUserId();
       }, []);
@@ -92,7 +94,7 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
                 <div className="ImportantTaskCard_task" key={importantTask.taskid}>
                     <div className="ImportantTaskCard_taskTitle">{importantTask.taskTitle}</div>
                     <div className="ImportantTaskCard_taskDescription">
-                        {importantTask.taskDescription}
+                        {importantTask.taskDescription}    
                     </div>
                     <div className="ImportantTaskCard_taskDueDate">
                         Due Date: {importantTask.estimatedTime}
