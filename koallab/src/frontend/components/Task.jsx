@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/Task.css";
 
 
-const Task = ({
+const Task = () => ({
   TaskTitle,
   description,
   username,
