@@ -15,7 +15,13 @@ To install all the dependencies, navigate to the project directory and use
 ```sh
 npm install
 ```
-To run the vite backed front-end, change directory to Koallab and use:
+
+Before running the front-end application, the backend needs to be started, to do so, change directory to backend and use:
+```sh
+npm start
+```
+
+To run the vite backed front-end, open a new terminal window, and change directory to Koallab and use:
 ```sh
 npm run dev
 ```
@@ -29,4 +35,9 @@ Groups Page: '/group'
 User Profile: '/userProfile'
 Login: '/login'
 Signup: '/signup'
+```
+For login, you may use the following credentials:
+```sh
+Email: syan408@aucklanduni.ac.nz
+Password: 123
 ```
