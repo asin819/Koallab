@@ -31,38 +31,34 @@ export default function SignIn() {
 
     // Logic for Auth goes here. If auth use navigate line below. Also the code block commented below is from the internet, 
     // can be used if needed.
-
-
-    navigate('/')
-
-    // const options = {
-    //   mode: 'cors',
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json",
-    //     "Origin": "http://localhost:3000"
-    //   },
-    //   body: JSON.stringify({ 
-    //     email: email, 
-    //     password: password }),
-    // }
-    // fetch(url, options)
-    // .then(async (res) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({ 
+        email: email, 
+        password: password }),
+    }
+    fetch(url, options)
+    .then(async (res) => {
     
-    //   let data = await res.json();
-    //   data = JSON.parse(data);
-    //   return { ...data, ok: res.ok }
-    //   })
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       sessionStorage.setItem("AuthToken", res.token )
-    //       navigate("/")
-    //     } else {
-    //       // Convert this to toast
-    //       toast.error(res.ErrorMessage, ToastOptions)
-    //     }
-    //   })
+      let data = await res.json();
+      data = JSON.parse(data);
+      return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          sessionStorage.setItem("AuthToken", res.token )
+          navigate("/")
+        } else {
+          // Convert this to toast
+          toast.error(res.ErrorMessage, ToastOptions)
+        }
+      })
   }
 
   return (
