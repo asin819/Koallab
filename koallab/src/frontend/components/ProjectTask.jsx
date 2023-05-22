@@ -3,22 +3,22 @@ import './styles/ProjectTask.css';
 export const ProjectTask= ({ projectID, groupID }) => {
     const [importantTasks, setImportantTasks] = useState([]);
 
-    useEffect(() => {
-        const query = `SELECT tasktitle, taskdescription, duedate, projectid, groupid
-                   FROM tasks
-                   WHERE importance = 'Important' AND projectid = '${projectID}' AND groupid = '${groupID}';`;
+    // useEffect(() => {
+    //     const query = `SELECT tasktitle, taskdescription, duedate, projectid, groupid
+    //                FROM tasks
+    //                WHERE importance = 'Important' AND projectid = '${projectID}' AND groupid = '${groupID}';`;
 
-        fetch("/api/getImportantTasks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setImportantTasks(data);
-            })
-            .catch((err) => console.error(err));
-    }, [projectID, groupID]);
+    //     fetch("/api/getImportantTasks", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ query }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setImportantTasks(data);
+    //         })
+    //         .catch((err) => console.error(err));
+    // }, [projectID, groupID]);
 
     return (
         <div className="ProjectTask_container">

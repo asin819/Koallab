@@ -19,7 +19,6 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
     }, [userId]);
 
     useEffect(() => {
-        console.log(taskResponse);
         settasks(taskResponse)
     }, [taskResponse]);
 

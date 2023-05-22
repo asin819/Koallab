@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Button } from "@mui/material";
 
 import "./Project.css";
@@ -22,7 +22,316 @@ export const Project = () => {
     CreationTime: "3 April 2023",
     ProjectStatus: "Active",
     Progress: 40,
+    //end time is new, please add it
+    EndTime: "4 April 2023"
   };
+
+  //THIS IS TEMP FOR BACKEND NEED TO KEEP UNTIL MERGED
+  var projectid = "00000001";
+  
+
+  //below is getting the data
+  var token = sessionStorage.getItem("AuthToken")
+
+  const [userId, setUserId] = useState(null)
+  const [projectInfoResponse, setProjectInfoResponse] = useState([]);
+  const [tasksResponse, setTasksResponse] = useState([]);
+  const [resourceResponse, setResourceResponse] = useState([]);
+  const [projectName, setProjectName] = useState();
+  const [creatorID, setCreatorID] = useState();
+  const [projectStatus, setProjectStatus] = useState();
+  const [creationTime, setCreationTime] = useState();
+  const [endTime, setEndTime] = useState();
+  const [tasks, setTasks] = useState([]);
+  const [resources, setResources] = useState([]);
+
+  //dis is the completion %
+  const [completion, setCompletion] = useState(0);
+
+  useEffect(() => {
+    getUserId();
+  }, []);
+
+  useEffect(() => {
+    if (userId!=null) {
+      getDataFrom(`/getProjectInfo?projectid=${projectid}&token=${token}`);
+      getDataFrom(`/getTaskListFromProject?projectid=${projectid}&token=${token}`);
+      getDataFrom(`/getResourceListFromProject?projectid=${projectid}&token=${token}`);
+    }
+  }, [userId]);
+
+  //all u need for project info
+  useEffect(() => {
+    setProjectName(projectInfoResponse.projectname);
+    setCreatorID(projectInfoResponse.creatorid);
+    setProjectStatus(projectInfoResponse.projectstatus);
+    setCreationTime(projectInfoResponse.creationtime);
+    setEndTime(projectInfoResponse.endtime);
+}, [projectInfoResponse]);
+
+  //getting the list of tasks
+  //chuck something like the below in the return
+
+  // <div className="whatever the fuck _container">
+  //           {tasks.map((task) => (
+  //               <div style={cardStyle}>
+  //                   <div style={titleStyle}>{task.tasktitle}</div>
+  //                   <div style={descriptionStyle}>{task.taskdescription}</div>
+  //                   <div style={dueDateStyle}>Due Date: {task.estimatedtime}</div>
+  //               </div>
+
+  //           ))}
+  //       </div>
+  useEffect(() => {
+    setTasks(tasksResponse);
+  }, [tasksResponse]);
+
+  useEffect(() => {
+    setResources(resourceResponse);
+  }, [resourceResponse]);
+
+  const getUserId = () => {
+    const options = {
+      mode: 'cors',
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+    }
+    fetch(`http://127.0.0.1:3000/getUserid?token=${token}`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          setUserId(res.token)
+        }
+      })
+  }
+
+  useEffect(() => {
+    var i;
+    var completed = 0;
+    for(i = 0 ; i < tasks.length ; i++){
+      if(tasks[0].status === "obsolete" || tasks[0].status === "accepted" || tasks[0].status === "completed"){
+        completed++;
+      }
+    }
+    if(completed == 0){
+      setCompletion(0);
+    }else{
+      setCompletion(tasks.length/completed);
+    }
+    console.log(completion);
+  },[tasks]);
+
+  const getDataFrom = (url) => {
+    const options = {
+      mode: 'cors',
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+    }
+    fetch(`http://127.0.0.1:3000${url}`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.ok) {
+          if (url.includes("getProjectInfo")) {
+            setProjectInfoResponse(res.data[0]);
+          } else if (url.includes("getTaskListFromProject")) {
+            setTasks(res.data);
+          } else if (url.includes("getResourceListFromProject")){
+            setResourceResponse(res.data);
+          }
+        } else {
+          // Convert this to toast
+
+        }
+      })
+  }
+
+  //waiting for shuiling, dont touch
+  const updateTasksStatus = (taskId, taskStatus) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        taskstatus: taskStatus,
+        taskid: taskId
+      }),
+    }
+    fetch(`http://127.0.0.1:3000/changeProjectStatus`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.status) {
+          // do some ui code here, or may it doesnt need it
+        } else {
+          
+        }
+      })
+  }
+
+  //waiting for shuiling
+  const addNewTask = (tasktitle, taskdescription, taskstatus, estimatedtime, importance, tasklabel) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        tasktitle: tasktitle,
+        taskdescription: taskdescription,
+        taskstatus: taskstatus,
+        estimatedtime: estimatedtime,
+        importance: importance,
+        tasklabel: tasklabel,
+      }),
+    }
+    fetch(`http://127.0.0.1:3000/changeProjectStatus`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.status) {
+          // do some ui code here, or may it doesnt need it
+        } else {
+          
+        }
+      })
+  }
+  
+  //waiting for shuiling
+  const addTasktoProject = (projectid, taskid) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        projectid: projectid,
+        taskid: taskid,
+      }),
+    }
+    fetch(`http://127.0.0.1:3000/addTaskToProject`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.status) {
+          // do some ui code here, or may it doesnt need it
+        } else {
+          
+        }
+      })
+  }
+
+  //waiting for shuiling
+  const removeTasktoProject = (projectid, taskid) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        projectid: projectid,
+        taskid: taskid,
+      }),
+    }
+    fetch(`http://127.0.0.1:3000/deleteTaskFromProject`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.status) {
+          // do some ui code here, or may it doesnt need it
+        } else {
+          
+        }
+      })
+  }
+
+  //waiting for shuiling
+  const uploadResource = (projectid, file) => {
+    const options = {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        projectid: projectid,
+        file: file,
+      }),
+    }
+    fetch(`http://127.0.0.1:3000/upload`, options)
+      .then(async (res) => {
+
+        let data = await res.json();
+        data = JSON.parse(data);
+        return { ...data, ok: res.ok }
+      })
+      .then((res) => {
+        if (res.status) {
+          // do some ui code here, or may it doesnt need it
+        } else {
+          
+        }
+      })
+  }
+
+
+
+
+
+
+  //end of eaton shit
+
+
+
 
   const [openInfoModal, setInfoModal] = useState(false);
   const [openResourcesModal, setResourcesModal] = useState(false);
