@@ -54,6 +54,16 @@ router.post('/deleteUser', user.deleteUser);
 router.get('/getGroupUserList', user.getGroupUserList);
 
 /**
+ * get user information from project
+ */
+router.get('/getProjectUserList', user.getProjectUserList);
+
+/**
+ * Get all user information
+ */
+router.get('/getAllUserList', user.getAllUserList);
+
+/**
  * Get user information from project
  */
 router.get('/getProjectUserList', user.getProjectUserList);

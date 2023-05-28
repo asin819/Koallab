@@ -339,6 +339,103 @@ this.getGroupUserList = async function (req, res, next) {
     }
 };
 
+this.getProjectUserList = async function (req, res, next) {
+    try {
+        let projectid = req.body.projectid;
+        if (projectid != null & projectid != "") {
+                await global.db.modProject_User_Relationship.find({"projectid":projectid}).then(async (docs) => {
+                    if (docs.length > 0 && docs[0]!=null) {
+                        let userList = [];
+                        docs.forEach(d => {
+                            userList.push(d.userid)
+                        });
+                        await global.db.modUser.find({"userid":userList}).then(async (docs) => {
+                            if (docs.length > 0 && docs[0]!=null) {
+                                let resultData = [];
+                                docs.forEach(d => {
+                                    let useridFromDb = d.userid;
+                                    let email = d.email;
+                                    let registrationtime = d.registrationtime;
+                                    let userstatus = d.userstatus;
+                                    let username = d.username;
+                                    let photo = d.photo;
+                                    resultData.push({
+                                        "userid":useridFromDb,
+                                        "email":email,
+                                        "registrationtime":registrationtime,
+                                        "userstatus":userstatus,
+                                        "username":username,
+                                        "photo":photo
+                                    });
+                                })
+                                res.end(base.mkBizMsg("success", "done!",null,resultData));
+                            } else {
+                                throw new Error("The userid is not exist");
+                            }
+                        });
+                    } else {
+                        throw new Error("No one in this projectid");
+                    }
+                });
+            
+
+        } else {
+            throw new Error("Please provide a projectid");
+        }
+    } catch (e) {
+        console.log(e);
+        res.end(base.mkBizMsg("fail", e.message ? e.message : e));
+    }
+};
+
+/**
+ * get all users
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+this.getAllUserList = async function (req, res, next) {
+    try {
+            await global.db.modGroup_User_Relationship.find({}).then(async (docs) => {
+                if (docs.length > 0 && docs[0]!=null) {
+                    let userList = [];
+                    docs.forEach(d => {
+                        userList.push(d.userid)
+                    });
+                    await global.db.modUser.find({"userid":userList}).then(async (docs) => {
+                        if (docs.length > 0 && docs[0]!=null) {
+                            let resultData = [];
+                            docs.forEach(d => {
+                                let useridFromDb = d.userid;
+                                let email = d.email;
+                                let registrationtime = d.registrationtime;
+                                let userstatus = d.userstatus;
+                                let username = d.username;
+                                let photo = d.photo;
+                                resultData.push({
+                                    "userid":useridFromDb,
+                                    "email":email,
+                                    "registrationtime":registrationtime,
+                                    "userstatus":userstatus,
+                                    "username":username,
+                                    "photo":photo
+                                });
+                            })
+                            res.end(base.mkBizMsg("success", "done!",null,resultData));
+                        } else {
+                            throw new Error("The userid is not exist");
+                        }
+                    });
+                } else {
+                    throw new Error("No one in this group");
+                }
+            });
+    } catch (e) {
+        console.log(e);
+        res.end(base.mkBizMsg("fail", e.message ? e.message : e));
+    }
+};
+
 /**
  * query the user list from the project
  * @param {*} req 
