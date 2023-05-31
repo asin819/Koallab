@@ -189,9 +189,9 @@ this.modifyLogContent = async function (req, res, next) {
 
 this.deleteLog = async function (req, res, next) {
     try {
-        let taskid = req.body.taskid;
-        if (taskid != null & taskid != "") {
-            await global.db.modTask_Log.deleteOne({ taskid: taskid }).then((docs) => {
+        let logid = req.body.logid;
+        if (logid != null & logid != "") {
+            await global.db.modTask_Log.deleteOne({ logid: logid }).then((docs) => {
                 if (docs.deletedCount > 0) {
                     res.end(base.mkBizMsg("success", "Delete log done!"));
                 } else {
@@ -199,7 +199,7 @@ this.deleteLog = async function (req, res, next) {
                 }
             });
         } else {
-            throw new Error("You need to provide a taskid");
+            throw new Error("You need to provide a logid");
         }
     } catch (e) {
         console.log(e);
