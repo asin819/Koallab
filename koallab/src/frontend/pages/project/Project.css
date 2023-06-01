@@ -142,6 +142,14 @@
     justify-content: center;
     align-items: center;
 }
+.view_resources{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: #2a80d5;
+    width: fit-content;
+
+}
 
 .Resources_container{
     width: 800px;

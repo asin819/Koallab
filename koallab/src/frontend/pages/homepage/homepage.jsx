@@ -96,7 +96,7 @@ const Homepage = () => {
         sessionStorage.removeItem("AuthToken")
     }
 
-    const koalaClass = hour >= 20 || hour < 6 ? "sleepy" : "awake"; // Change Koala image based on time
+    const koalaClass = hour >= 18 || hour < 6 ? "sleepy" : "awake"; // Change Koala image based on time
 
     return (
         <div className="homepage" id="content">

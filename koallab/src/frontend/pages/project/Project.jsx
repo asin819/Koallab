@@ -319,7 +319,7 @@ export const Project = () => {
       })
       .then((res) => {
         if (res.status) {
-          // do some ui code here, or may it doesnt need it
+          console.log('sucess')
         } else {
           
         }
@@ -363,6 +363,8 @@ export const Project = () => {
   const onButtonClick = () => {
     // `current` points to the mounted file input element
     inputFile.current.click();
+    console.log(inputFile)
+    uploadResource(projectid, inputFile);
   };
 
   const checkModals = () => {
@@ -415,6 +417,7 @@ export const Project = () => {
   return (
     <div className="project_container">
       {checkModals()}
+      
       <div className="top_section_project">
         <h1 className="project_title">{projectName}</h1>
         {isAdmin && (
@@ -423,14 +426,9 @@ export const Project = () => {
           </div>
         )}
       </div>
-      <Button onClick={() => openProjectResources()} sx={{
-        textTransform: 'none',
-        marginTop: '10px',
-        marginBottom: '10px',
-        
-      }}>
-        View Resources
-      </Button>
+      <div className="view_resources" onClick={() => openProjectResources()}>
+        <p>View Resources</p>
+      </div>
       <div className="project_progress">
         <div
           className="project_progress_fill"
@@ -448,6 +446,7 @@ export const Project = () => {
           </p>
         </div>
       </div>
+      
       <hr />
       <div className="middle_section_project">
         <h2 className="project_member_title"> Members</h2>
