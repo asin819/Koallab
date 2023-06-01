@@ -360,11 +360,11 @@ export const Project = () => {
       <>
         {openInfoModal && (
           <ProjectInfoCard
-            ProjectId={projectInfo.ProjectID}
-            ProjectName={projectInfo.ProjectName}
-            CreatorID={projectInfo.CreatorID}
-            CreationTime={projectInfo.CreationTime}
-            ProjectStatus={projectInfo.ProjectStatus}
+            ProjectId={projectid}
+            ProjectName={projectName}
+            CreatorID={creatorID}
+            CreationTime={creationTime}
+            ProjectStatus={projectStatus}
             ModalStateFunction={setInfoModal}
           />
         )}
@@ -389,7 +389,7 @@ export const Project = () => {
     <div className="project_container">
       {checkModals()}
       <div className="top_section_project">
-        <h1 className="project_title">{projectInfo.ProjectName}</h1>
+        <h1 className="project_title">{projectName}</h1>
         {isAdmin && (
           <div className="wrenchIcon" onClick={() => setInfoModal(true)}>
             <WrenchIcon height={"24px"} width={"24px"} />
