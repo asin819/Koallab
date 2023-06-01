@@ -423,7 +423,7 @@ export const Project = () => {
                   }}
                   onClick={onButtonClick}
                 >
-                  Add
+                  Yes
                   <input
                     type="file"
                     id="file"
@@ -437,7 +437,7 @@ export const Project = () => {
                     textTransform: "none",
                   }}
                 >
-                  Close
+                  No
                 </Button>
               </div>
             </div>
