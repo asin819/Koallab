@@ -17,9 +17,11 @@ const ProjectInfoCard = (
     return (
         <div className="ProjectInfoCard_modal">
             <div className="ProjectInfoCard_container">
-                <div>
+                <div className="ProjectInfoCard_buttons">
                     <h2>{ProjectName}</h2>
-                    <Button>Disband</Button>
+                    <Button onClick={() => ModalStateFunction(false)} sx={{
+                        textTransform: 'none'
+                    }}>Close</Button>
 
                 </div>
                 <hr/>
@@ -27,8 +29,12 @@ const ProjectInfoCard = (
                 <p>Creator ID: {CreatorId}</p>
                 <p>Created at: {CreationTime}</p>
                 <p>Status: {ProjectStatus}</p>
-                <div className="GroupInfoCard_buttons">
-                    <Button onClick={() => ModalStateFunction(false)}>Close</Button>
+                <div >
+                    
+                    <Button sx={{
+                        textTransform: 'none',
+                        color: 'red'
+                    }}>Disband</Button>
 
                 </div>
             </div>

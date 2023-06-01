@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 
 import "./Project.css";
 import WrenchIcon from "@heroicons/react/24/solid/WrenchIcon.js";
+import InfoIcon from "@heroicons/react/24/outline/InformationCircleIcon"
 import ProjectInfoCard from "../../components/ProjectInfoCard.jsx";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon.js";
 import { ProjectMemberCard } from "../../components/ProjectMemberCard.jsx";
@@ -392,7 +393,7 @@ export const Project = () => {
         <h1 className="project_title">{projectName}</h1>
         {isAdmin && (
           <div className="wrenchIcon" onClick={() => setInfoModal(true)}>
-            <WrenchIcon height={"24px"} width={"24px"} />
+            <InfoIcon height={"24px"} width={"24px"} />
           </div>
         )}
       </div>
