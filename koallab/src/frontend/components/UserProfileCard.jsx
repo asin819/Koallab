@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useRef } from "react";
 import { Button, TextField, FormControl, InputLabel } from "@mui/material";
 import "./styles/UserProfileCard.css";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import EyeIcon from "@heroicons/react/24/outline/EyeIcon";
+import profileImage from '../assets/profile.png'
 import EyeSlashIcon from "@heroicons/react/24/outline/EyeSlashIcon";
 
 export const UserProfileCard = ({
@@ -41,18 +42,38 @@ export const UserProfileCard = ({
     setPass(e.target.value)
   }
 
-
+  const inputFile = useRef(null) 
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    inputFile.current.click();
+    console.log(inputFile)
+    uploadResource(projectid, inputFile);
+  };
 
   return (
     <div className="UserProfileCard_container">
       <div className="UserProfileCard_details">
-        <img src={UserImage} alt="" />
+        <img src={profileImage} alt="profile image" width='200px' style={{
+          marginTop: '20px',
+          borderRadius: '10px'
+        }} />
+        {isEditing &&
+          <Button onClick={onButtonClick} sx={{
+            textTransform: "none"
+          }}>Edit image
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
+
+          </Button>
+        }
         <div className="UserProfileCard_titleDiv">
           <h2 className="UserProfileCard_title">{UserName}</h2>
           {isEditing && (
             <Button
               className="UserProfileCard_SaveButton"
               onClick={() => SaveData()}
+              sx={{
+                textTransform: 'none'
+              }}
             >
               Save
             </Button>
@@ -62,11 +83,11 @@ export const UserProfileCard = ({
               className="UserProfileCard_EditButton"
               onClick={() => setIsEditing(true)}
             >
-              <PencilSquareIcon width={"24px"} />
+              <PencilSquareIcon width={"24px"} style={{cursor: 'pointer'}}/>
             </div>
           )}
         </div>
-        {!isEditing && <p>Email: {UserEmail}</p>}
+        {!isEditing && <p style={{ marginBottom: '20px'}}>{UserEmail}</p>}
         {isEditing && (
           <div className="UserProfileCard_editingDivs">
             <p>Email</p>
@@ -85,7 +106,7 @@ export const UserProfileCard = ({
             >
               <OutlinedInput
                 type={showPassword ? "text" : "password"}
-                value={UserName}
+                value={'123'}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

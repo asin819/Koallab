@@ -6,7 +6,7 @@ const UserProfile = () => {
 
     return (
      <div>
-        <UserProfileCard UserName={'Testing'} UserEmail={'asb'}/>
+        <UserProfileCard UserName={'John'} UserEmail={'syan408@aucklanduni.ac.nz'}/>
      </div>   
     )
 
