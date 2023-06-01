@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef} from "react";
-import { Button } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { Button, TextField } from "@mui/material";
 
 import "./Project.css";
 import WrenchIcon from "@heroicons/react/24/solid/WrenchIcon.js";
-import InfoIcon from "@heroicons/react/24/outline/InformationCircleIcon"
+import InfoIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import ProjectInfoCard from "../../components/ProjectInfoCard.jsx";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon.js";
 import { ProjectMemberCard } from "../../components/ProjectMemberCard.jsx";
@@ -11,10 +11,9 @@ import { ProjectTask } from "../../components/ProjectTask.jsx";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon.js";
 import ResourceItem from "../../components/ResourceItem";
 
-
 export const Project = () => {
   // TODO use backend to get ProjectInfo and UserList
-  const UserList = ["John", "Bella", "Sky"];
+  const UserList = ["John", "Wendy", "Sanjeev", "Bob", "Steve", "Rakesh"];
 
   const projectInfo = {
     ProjectName: "750 Group Project",
@@ -22,19 +21,18 @@ export const Project = () => {
     CreatorID: "456",
     CreationTime: "3 April 2023",
     ProjectStatus: "Active",
-    Progress: 40,
+    Progress: 50,
     //end time is new, please add it
-    EndTime: "4 April 2023"
+    EndTime: "4 April 2023",
   };
 
   //THIS IS TEMP FOR BACKEND NEED TO KEEP UNTIL MERGED
   var projectid = "00000001";
-  
 
   //below is getting the data
-  var token = sessionStorage.getItem("AuthToken")
+  var token = sessionStorage.getItem("AuthToken");
 
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState(null);
   const [projectInfoResponse, setProjectInfoResponse] = useState([]);
   const [tasksResponse, setTasksResponse] = useState([]);
   const [resourceResponse, setResourceResponse] = useState([]);
@@ -54,10 +52,14 @@ export const Project = () => {
   }, []);
 
   useEffect(() => {
-    if (userId!=null) {
+    if (userId != null) {
       getDataFrom(`/getProjectInfo?projectid=${projectid}&token=${token}`);
-      getDataFrom(`/getTaskListFromProject?projectid=${projectid}&token=${token}`);
-      getDataFrom(`/getResourceListFromProject?projectid=${projectid}&token=${token}`);
+      getDataFrom(
+        `/getTaskListFromProject?projectid=${projectid}&token=${token}`
+      );
+      getDataFrom(
+        `/getResourceListFromProject?projectid=${projectid}&token=${token}`
+      );
     }
   }, [userId]);
 
@@ -68,7 +70,7 @@ export const Project = () => {
     setProjectStatus(projectInfoResponse.projectstatus);
     setCreationTime(projectInfoResponse.creationtime);
     setEndTime(projectInfoResponse.endtime);
-}, [projectInfoResponse]);
+  }, [projectInfoResponse]);
 
   //getting the list of tasks
   //chuck something like the below in the return
@@ -93,61 +95,63 @@ export const Project = () => {
 
   const getUserId = () => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
-    }
+    };
     fetch(`http://127.0.0.1:3000/getUserid?token=${token}`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
 
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.ok) {
-          setUserId(res.token)
+          setUserId(res.token);
         }
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     var i;
     var completed = 0;
-    for(i = 0 ; i < tasks.length ; i++){
-      if(tasks[0].status === "obsolete" || tasks[0].status === "accepted" || tasks[0].status === "completed"){
+    for (i = 0; i < tasks.length; i++) {
+      if (
+        tasks[0].status === "obsolete" ||
+        tasks[0].status === "accepted" ||
+        tasks[0].status === "completed"
+      ) {
         completed++;
       }
     }
-    if(completed == 0){
+    if (completed == 0) {
       setCompletion(0);
-    }else{
-      setCompletion(tasks.length/completed);
+    } else {
+      setCompletion(tasks.length / completed);
     }
     console.log(completion);
-  },[tasks]);
+  }, [tasks]);
 
   const getDataFrom = (url) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
-    }
+    };
     fetch(`http://127.0.0.1:3000${url}`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.ok) {
@@ -155,58 +159,60 @@ export const Project = () => {
             setProjectInfoResponse(res.data[0]);
           } else if (url.includes("getTaskListFromProject")) {
             setTasks(res.data);
-          } else if (url.includes("getResourceListFromProject")){
+          } else if (url.includes("getResourceListFromProject")) {
             setResourceResponse(res.data);
           }
         } else {
           // Convert this to toast
-
         }
-      })
-  }
+      });
+  };
 
   //waiting for shuiling, dont touch
   const updateTasksStatus = (taskId, taskStatus) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         taskstatus: taskStatus,
-        taskid: taskId
+        taskid: taskId,
       }),
-    }
+    };
     fetch(`http://127.0.0.1:3000/changeProjectStatus`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.status) {
           // do some ui code here, or may it doesnt need it
         } else {
-          
         }
-      })
-  }
-
-  
+      });
+  };
 
   //waiting for shuiling
-  const addNewTask = (tasktitle, taskdescription, taskstatus, estimatedtime, importance, tasklabel) => {
+  const addNewTask = (
+    tasktitle,
+    taskdescription,
+    taskstatus,
+    estimatedtime,
+    importance,
+    tasklabel
+  ) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         tasktitle: tasktitle,
@@ -216,129 +222,115 @@ export const Project = () => {
         importance: importance,
         tasklabel: tasklabel,
       }),
-    }
+    };
     fetch(`http://127.0.0.1:3000/changeProjectStatus`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.status) {
           // do some ui code here, or may it doesnt need it
         } else {
-          
         }
-      })
-  }
-  
+      });
+  };
+
   //waiting for shuiling
   const addTasktoProject = (projectid, taskid) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         projectid: projectid,
         taskid: taskid,
       }),
-    }
+    };
     fetch(`http://127.0.0.1:3000/addTaskToProject`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.status) {
           // do some ui code here, or may it doesnt need it
         } else {
-          
         }
-      })
-  }
+      });
+  };
 
   //waiting for shuiling
   const removeTasktoProject = (projectid, taskid) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         projectid: projectid,
         taskid: taskid,
       }),
-    }
+    };
     fetch(`http://127.0.0.1:3000/deleteTaskFromProject`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.status) {
           // do some ui code here, or may it doesnt need it
         } else {
-          
         }
-      })
-  }
+      });
+  };
 
   //waiting for shuiling
   const uploadResource = (projectid, file) => {
     const options = {
-      mode: 'cors',
+      mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Origin": "http://localhost:3000"
+        Accept: "application/json",
+        Origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         projectid: projectid,
         file: file,
       }),
-    }
+    };
     fetch(`http://127.0.0.1:3000/upload`, options)
       .then(async (res) => {
-
         let data = await res.json();
         data = JSON.parse(data);
-        return { ...data, ok: res.ok }
+        return { ...data, ok: res.ok };
       })
       .then((res) => {
         if (res.status) {
-          console.log('sucess')
+          console.log("sucess");
         } else {
-          
         }
-      })
-  }
-
-
-
-
-
+      });
+  };
 
   //end of eaton shit
-
-
-
 
   const [openInfoModal, setInfoModal] = useState(false);
   const [openResourcesModal, setResourcesModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
+  const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
+  const [openNewUserModal, setOpenNewUserModal] = useState(false);
 
   const isAdmin = true;
 
@@ -355,17 +347,17 @@ export const Project = () => {
   const addUserToProject = () => {};
 
   const openTask = () => {
-    setOpenTaskModal(true)
+    setOpenTaskModal(true);
   };
 
-
-  const inputFile = useRef(null) 
+  const inputFile = useRef(null);
   const onButtonClick = () => {
     // `current` points to the mounted file input element
     inputFile.current.click();
-    console.log(inputFile)
+    console.log(inputFile);
     uploadResource(projectid, inputFile);
   };
+  const [currUser, setcurrUser] = useState("");
 
   const checkModals = () => {
     return (
@@ -384,40 +376,120 @@ export const Project = () => {
           <div className="Resources_modal">
             <div className="Resources_container">
               <div className="Resources_title">
-              <h2 style={{ color: "#fefefe" }}>Resources</h2>
-              <div>
-                <Button sx={{
-                  textTransform: 'none'
-                }}
-                onClick={onButtonClick}>Add
-                
-                <input type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
-                </Button>
-              <Button onClick={() => setResourcesModal(false)} sx={{
-                textTransform:'none'
-              }}>Close</Button>
+                <h2 style={{ color: "#fefefe" }}>Resources</h2>
+                <div>
+                  <Button
+                    sx={{
+                      textTransform: "none",
+                    }}
+                    onClick={onButtonClick}
+                  >
+                    Add
+                    <input
+                      type="file"
+                      id="file"
+                      ref={inputFile}
+                      style={{ display: "none" }}
+                    />
+                  </Button>
+                  <Button
+                    onClick={() => setResourcesModal(false)}
+                    sx={{
+                      textTransform: "none",
+                    }}
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
-              
-              </div>
-              {resourceResponse.map(resource => (
-                <ResourceItem key={resource.resourceid} resource={resource}/>
+              {resourceResponse.map((resource) => (
+                <ResourceItem key={resource.resourceid} resource={resource} />
               ))}
             </div>
           </div>
         )}
-        {
-            // TODO
-            // openTaskModal && 
-            // <Task />
-        }
+
+        {openDeleteUserModal && (
+          <div className="DeleteUser_modal">
+            <div className="DeleteUser_container">
+              <h3 style={{ color: "#fefefe" }}>
+                Are you sure you want to remove {currUser} from the group?
+              </h3>
+
+              <div className="DeleteUser_buttons">
+                <Button
+                  sx={{
+                    textTransform: "none",
+                  }}
+                  onClick={onButtonClick}
+                >
+                  Add
+                  <input
+                    type="file"
+                    id="file"
+                    ref={inputFile}
+                    style={{ display: "none" }}
+                  />
+                </Button>
+                <Button
+                  onClick={() => setOpenDeleteUserModal(false)}
+                  sx={{
+                    textTransform: "none",
+                  }}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+        {openNewUserModal && (
+          <div className="NewUser_modal">
+            <div className="NewUser_container">
+            <div className="NewUser_title">
+
+              <h3 style={{ color: "#fefefe" }}>
+                Search for a user to add
+              </h3>
+              <Button onClick={()=>setOpenNewUserModal(false)} sx={{textTransform: "none"}}>Close</Button>
+            </div>
+            <TextField sx={{
+              width: '400px',
+              borderRadius: '10px',
+              backgroundColor: '#fefefe',
+              border: 'none',
+              outline: 'none',
+              marginTop: '10px'
+
+            }}
+            minRows={1}></TextField>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop:"10px",
+              marginBottom: '10px'
+            }}>
+            <Button sx={{textTransform: 'none'}}>Add</Button>
+
+            </div>
+            </div>
+
+          </div>
+        )}
       </>
     );
   };
 
+  const handleDeleteModal = (user) => {
+    if (isEditing) {
+      setcurrUser(user);
+      setOpenDeleteUserModal(true);
+    }
+  };
   return (
     <div className="project_container">
       {checkModals()}
-      
+
       <div className="top_section_project">
         <h1 className="project_title">{projectName}</h1>
         {isAdmin && (
@@ -446,7 +518,7 @@ export const Project = () => {
           </p>
         </div>
       </div>
-      
+
       <hr />
       <div className="middle_section_project">
         <h2 className="project_member_title"> Members</h2>
@@ -458,12 +530,17 @@ export const Project = () => {
       </div>
       <div className="project_member">
         {UserList.map((user) => (
-          <ProjectMemberCard Username={user} editingState={isEditing} />
+          <div onClick={() => handleDeleteModal(user)}>
+            <ProjectMemberCard Username={user} editingState={isEditing} />
+          </div>
         ))}
         {isEditing && (
           <div
             className="AddUserToProjectBox"
-            onClick={() => addUserToProject()}
+            onClick={() => setOpenNewUserModal(true)}
+            style={{
+              cursor: 'pointer'
+            }}
           >
             <PlusIcon width={"30px"} />
           </div>

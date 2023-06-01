@@ -164,3 +164,61 @@
     display: flex;
     justify-content: space-between;
 }
+
+.DeleteUser_container{
+    width: 300px;
+    height: 100px;
+    background: #1c2536;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.DeleteUser_buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.DeleteUser_modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.NewUser_container{
+    width: 400px;
+    height: 140px;
+    background: #1c2536;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.NewUser_buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.NewUser_modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NewUser_title{
+    display: flex;
+    justify-content: space-between;
+}
