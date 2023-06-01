@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef} from "react";
 import { Button } from "@mui/material";
 
 import "./Project.css";
@@ -9,7 +9,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon.js";
 import { ProjectMemberCard } from "../../components/ProjectMemberCard.jsx";
 import { ProjectTask } from "../../components/ProjectTask.jsx";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon.js";
-
+import ResourceItem from "../../components/ResourceItem";
 
 
 export const Project = () => {
@@ -196,6 +196,8 @@ export const Project = () => {
       })
   }
 
+  
+
   //waiting for shuiling
   const addNewTask = (tasktitle, taskdescription, taskstatus, estimatedtime, importance, tasklabel) => {
     const options = {
@@ -356,6 +358,13 @@ export const Project = () => {
     setOpenTaskModal(true)
   };
 
+
+  const inputFile = useRef(null) 
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    inputFile.current.click();
+  };
+
   const checkModals = () => {
     return (
       <>
@@ -372,8 +381,25 @@ export const Project = () => {
         {openResourcesModal && (
           <div className="Resources_modal">
             <div className="Resources_container">
+              <div className="Resources_title">
               <h2 style={{ color: "#fefefe" }}>Resources</h2>
-              <Button onClick={() => setResourcesModal(false)}>Close</Button>
+              <div>
+                <Button sx={{
+                  textTransform: 'none'
+                }}
+                onClick={onButtonClick}>Add
+                
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
+                </Button>
+              <Button onClick={() => setResourcesModal(false)} sx={{
+                textTransform:'none'
+              }}>Close</Button>
+              </div>
+              
+              </div>
+              {resourceResponse.map(resource => (
+                <ResourceItem key={resource.resourceid} resource={resource}/>
+              ))}
             </div>
           </div>
         )}
@@ -397,9 +423,14 @@ export const Project = () => {
           </div>
         )}
       </div>
-      <div className="view_resources" onClick={() => openProjectResources()}>
-        <p>View Resources</p>
-      </div>
+      <Button onClick={() => openProjectResources()} sx={{
+        textTransform: 'none',
+        marginTop: '10px',
+        marginBottom: '10px',
+        
+      }}>
+        View Resources
+      </Button>
       <div className="project_progress">
         <div
           className="project_progress_fill"
