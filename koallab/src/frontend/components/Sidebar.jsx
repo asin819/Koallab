@@ -127,9 +127,10 @@ const Sidebar = ({ children }) => {
         <div className="top_section">
           <img src={KollabLogo} style={{ width: "150px" }} />
         </div>
+        
 
         {/* Adds Home Button */}
-        <NavLink to="/" className="link" activeclassName="active">
+        <NavLink to="/home" className="link" activeclassName="active">
           <div className="icon">
             <ChartBarIcon width={"24px"} />
           </div>
@@ -152,17 +153,20 @@ const Sidebar = ({ children }) => {
         </div>
 
         {/* Maps all projects under the user to a link */}
-        {projects.map((projectItem) => (
+        {projectResponse.map((projectItem) => (
+          
           <NavLink
-            to="/project"
+            to={`project/${projectItem.projectid}`}
             className="link"
             activeclassName="active"
             style={{ marginLeft: "35px" }}
           >
             <div style={{ display: "block" }} className="link_text">
-              {projectItem}
+              {projectItem.projectname}
             </div>
           </NavLink>
+          
+          
         ))}
 
         {/* Adds Group header */}
@@ -179,15 +183,15 @@ const Sidebar = ({ children }) => {
         </div>
 
         {/* Maps all user groups as clickable links */}
-        {groups.map((groupItem) => (
+        {groupResponse.map((groupItem) => (
           <NavLink
-            to="/group"
+            to={`/group/${groupItem.groupid}`}
             className="link"
             activeclassName="active"
             style={{ marginLeft: "35px" }}
           >
             <div style={{ display: "block" }} className="link_text">
-              {groupItem}
+              {groupItem.groupname}
             </div>
           </NavLink>
         ))}

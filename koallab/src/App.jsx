@@ -28,8 +28,8 @@ const AppWithSidebar = () => {
     <Sidebar>
       <Routes>
         <Route path="/home" element={<Homepage />} />
-        <Route path="group" element={<Group />} />
-        <Route path="project" element={<Project />} />
+        <Route path="group/:id" element={<Group />} />
+        <Route path="project/:id" element={<Project />} />
         <Route path="userProfile" element={<UserProfile />} />
       </Routes>
     </Sidebar>
