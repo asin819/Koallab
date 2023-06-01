@@ -122,16 +122,19 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'John',
       },
       {
         Name: "Capstone Team 2",
         progress: 95,
+        user: 'John',
       },
       {
         Name: "Part 4 Project",
         progress: 20,
+        user: 'John',
       },
     ],
     editingState: true,
@@ -141,16 +144,21 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'Wendy',
       },
       {
         Name: "Capstone Team 9",
         progress: 70,
+        user: 'Wendy',
+
       },
       {
         Name: "Part 4 Project",
         progress: 40,
+        user: 'Wendy',
+
       },
     ],
     editingState: true,
@@ -159,20 +167,28 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'Sanjeev',
+
       },
       {
         Name: "SOFTENG 701 A6",
         progress: 10,
+        user: 'Sanjeev',
+
       },
       {
         Name: "Part 4 Project",
         progress: 5,
+        user: 'Sanjeev',
+
       },
       {
         Name: 'Case competition',
-        progress: 18.
+        progress: 18,
+        user: 'Sanjeev',
+
       }
     ],
     editingState: true,
@@ -182,16 +198,22 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'Bob',
+
       },
       {
         Name: "Capstone Team 1",
         progress: 60,
+        user: 'Bob',
+
       },
       {
         Name: "Part 4 Project",
         progress: 20,
+        user: 'Bob',
+
       },
     ],
     editingState: true,
@@ -201,16 +223,22 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'Steve',
+
       },
       {
         Name: "Part 4 Project",
         progress: 40,
+        user: 'Steve',
+
       },
       {
         Name: 'Private Project',
         progress: 60,
+        user: 'Steve',
+
       }
     ],
     editingState: true,
@@ -219,20 +247,28 @@ const Group = () => {
     UserName: "Test User",
     ProjectData: [
       {
-        Name: "Koallab",
+        Name: "Khaki Koallas",
         progress: 50,
+        user: 'Rakesh',
+
       },
       {
         Name: "SOFTENG 701 A6",
         progress: 100,
+        user: 'Rakesh',
+
       },
       {
         Name: "Part 4 Project",
         progress: 25,
+        user: 'Rakesh',
+
       },
       {
         Name: 'Case competition',
         progress: 90,
+        user: 'Rakesh',
+
       }
     ],
     editingState: true,

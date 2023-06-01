@@ -19,6 +19,7 @@ export const GroupHolder = ({ UserName, ProjectData, editingState }) => {
                                 key={item.id}
                                 ProjectName={item.Name}
                                 Progress={item.progress}
+                                Username={item.user}
                             />
                         ))
                     }
