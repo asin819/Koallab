@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export const ImportantTaskCard = ({ allTasks, groupID }) => {
 
     var token = sessionStorage.getItem("AuthToken")
@@ -78,8 +79,11 @@ export const ImportantTaskCard = ({ allTasks, groupID }) => {
     }
 
 
+    const navigate = useNavigate();
     return (
-        <div className="ImportantTaskCard_container">
+        <div className="ImportantTaskCard_container" onClick={() => navigate('/project/00000001')} style={{
+            cursor: 'pointer'
+        }}>
             {tasks.map((task) => (
                 <div style={cardStyle}>
                     <div style={titleStyle}>{task.tasktitle}</div>
